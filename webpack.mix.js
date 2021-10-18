@@ -12,6 +12,10 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+    .js('resources/js/back/sb-admin-2.js','public/js/back')
+    .js('resources/js/back/chart-area-demo.js','public/js/back')
+    .js('resources/js/back/chart-pie-demo.js','public/js/back')
+    .js('resources/js/back/datatables-demo.js','public/js/back');
+
+mix.sass('resources/sass/app.sass', 'public/css')
+    .sass('resources/sass/back/admin.scss', 'public/css/back');
