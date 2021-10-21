@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\back\BackController;
+use App\Http\Controllers\front\FrontController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +15,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FrontController::class, 'index'])->name('index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware(['auth'])->group(function() {
+
+    Route::prefix('my-account')->group(function () {
+
+        Route::get('/', [BackController::class, 'my-account'])->name('my-account');
+
+    });
+
+    Route::middleware(['admin'])->group(function() {
+
+        Route::prefix('dashboard')->group(function () {
+
+            Route::get('/', [BackController::class, 'dashboard'])->name('back.dashboard');
+
+        });
+    });
+});
 
 require __DIR__.'/auth.php';
