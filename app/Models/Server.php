@@ -12,8 +12,15 @@ class Server extends Model
     protected $fillable = [
         'name',
         'website',
+        'slots',
+        'acces',
+        'description',
         'tag',
-        'server',
+        'discord',
+        'teamspeak',
+        'mumble',
+        'twitch',
+        'youtube',
     ];
 
     public function game() {

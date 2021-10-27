@@ -33,7 +33,7 @@ class CreateServer extends Migration
             $table->string('slots');
             $table->string('acces');
             $table->string('description');
-            $table->string('tag');
+            $table->json('tag');
             $table->string('discord')->nullable();
             $table->string('teamspeak')->nullable();
             $table->string('mumble')->nullable();
