@@ -10,4 +10,8 @@ class BackController extends Controller {
         return view('back.dashboard');
     }
 
+    public function game() {
+        return view('back.game');
+    }
+
 }

@@ -15,13 +15,13 @@ class CreateServer extends Migration
     {
         Schema::create('server', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->bigInteger('game_id')->unsigned();
+            $table->unsignedbigInteger('game_id');
             $table->foreign('game_id')
                 ->references('id')
                 ->on('game')
@@ -29,6 +29,7 @@ class CreateServer extends Migration
                 ->onUpdate('cascade');
             $table->string('name')->unique();
             $table->string('ip');
+            $table->string('port');
             $table->string('website')->nullable();
             $table->string('slots');
             $table->string('acces');

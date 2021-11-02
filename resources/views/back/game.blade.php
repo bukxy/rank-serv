@@ -1,7 +1,7 @@
 @extends('back.layouts.main')
 
 @section('pageTitle')
-    {{ __("Dashboard") }}
+    {{ __("Game") }}
 @endsection
 
 
