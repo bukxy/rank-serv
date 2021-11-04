@@ -15,7 +15,7 @@ class Server extends Model
         'port',
         'website',
         'slots',
-        'acces',
+        'access',
         'description',
         'tag',
         'discord',

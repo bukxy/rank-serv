@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\back\BackController;
-use App\Http\Controllers\front\FrontController;
+use App\Http\Controllers\back\GameController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,8 +20,19 @@ Route::middleware(['admin'])->group(function() {
     Route::prefix('dashboard')->group(function () {
 
         Route::get('/', [BackController::class, 'dashboard'])->name('back.dashboard');
-        Route::get('/game', [BackController::class, 'dashboard'])->name('back.game');
+
+        Route::prefix('/game')->group(function() {
+
+            Route::get('/', [GameController::class, 'gameList'])->name('back.game');
+            Route::post('/', [GameController::class, 'gameAddStore'])->name('back.addGame.store');
+
+            Route::get('/edit-game', [GameController::class, 'gameEdit'])->name('back.editGame');
+            Route::post('/edit-game', [GameController::class, 'gameEditStore'])->name('back.editGame.store');
+
+        });
+
         Route::get('/server', [BackController::class, 'dashboard'])->name('back.server');
+
         Route::get('/user', [BackController::class, 'dashboard'])->name('back.user');
 
     });

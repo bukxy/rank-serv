@@ -78,18 +78,18 @@
                     </div>
                     <div class="col-12 row">
                         <div class="col-2">
-                            <label for="acces" class="form-label">Acces</label>
+                            <label for="access" class="form-label">Access</label>
                         </div>
                         @error('acces')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <div class="col-8">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="free" value="0" checked>
+                                <input class="form-check-input" type="radio" name="access" id="free" value="0" checked>
                                 <label class="form-check-label" for="free">Free Acces</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="whitelist" value="1">
+                                <input class="form-check-input" type="radio" name="access" id="whitelist" value="1">
                                 <label class="form-check-label" for="whitelist">Whitelist</label>
                             </div>
                         </div>

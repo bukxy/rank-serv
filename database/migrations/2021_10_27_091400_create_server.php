@@ -13,27 +13,25 @@ class CreateServer extends Migration
      */
     public function up()
     {
-        Schema::create('server', function (Blueprint $table) {
+        Schema::create('servers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->unsignedbigInteger('game_id');
             $table->foreign('game_id')
                 ->references('id')
                 ->on('game')
-                ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->string('name')->unique();
-            $table->string('ip');
-            $table->string('port');
+            $table->string('ip')->unique();
+            $table->string('port')->unique();
             $table->string('website')->nullable();
             $table->string('slots');
-            $table->string('acces');
-            $table->string('description');
+            $table->string('access');
+            $table->string('description')->nullable();
             $table->json('tag');
             $table->string('discord')->nullable();
             $table->string('teamspeak')->nullable();

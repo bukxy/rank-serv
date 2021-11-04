@@ -43,7 +43,7 @@
 {{--    </li>--}}
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('back.dashboard') }}">
+        <a class="nav-link" href="{{ route('back.game') }}">
             <i class="bi bi-joystick"></i>
             <span>Game Category</span></a>
     </li>

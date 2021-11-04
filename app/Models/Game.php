@@ -13,10 +13,14 @@ class Game extends Model
         'name',
         'image',
         'tag',
-        'server',
     ];
 
     public function servers() {
         return $this->hasMany(Server::class);
     }
+
+    public function image() {
+        return $this->hasOne(Image::class);
+    }
+
 }

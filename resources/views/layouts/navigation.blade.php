@@ -24,6 +24,9 @@
                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                 </li>
             @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('add-server') }}">{{ __('Add Server') }}</a>
+                </li>
                 <div class="dropdown text-end">
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
@@ -32,6 +35,9 @@
                         <li><a class="dropdown-item" href="{{ route('my-account') }}">Profile</a></li>
                         <li><a class="dropdown-item" href="{{ route('my-servers') }}">My Server(s)</a></li>
                         <li><a class="dropdown-item" href="{{ route('my-settings') }}">Settings</a></li>
+                        @if(Auth::user()->role == "admin")
+                        <li><a class="dropdown-item" href="{{ route('back.dashboard') }}">Dashboard</a></li>
+                        @endif
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <form action="{{ route('logout') }}" method="POST">
