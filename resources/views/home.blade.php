@@ -13,8 +13,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    {{ __('You are logged in!') }}
+                        <div class="alert alert-success mt-5" role="alert">
+                            Boostrap 5 is working!
+                        </div>
+                        {{ __('You are logged in!') }}
                 </div>
             </div>
         </div>

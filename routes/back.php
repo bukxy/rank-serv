@@ -23,11 +23,13 @@ Route::middleware(['admin'])->group(function() {
 
         Route::prefix('/game')->group(function() {
 
-            Route::get('/', [GameController::class, 'gameList'])->name('back.game');
-            Route::post('/', [GameController::class, 'gameAddStore'])->name('back.addGame.store');
+            Route::get('/', [GameController::class, 'list'])->name('back.game');
 
-            Route::get('/edit-game', [GameController::class, 'gameEdit'])->name('back.editGame');
-            Route::post('/edit-game', [GameController::class, 'gameEditStore'])->name('back.editGame.store');
+            Route::get('/new', [GameController::class, 'add'])->name('back.addGame');
+            Route::post('/new', [GameController::class, 'addStore'])->name('back.addGame.store');
+
+            Route::get('/edit', [GameController::class, 'edit'])->name('back.editGame');
+            Route::post('/edit', [GameController::class, 'edit'])->name('back.editGame.store');
 
         });
 

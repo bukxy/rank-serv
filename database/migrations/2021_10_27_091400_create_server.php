@@ -23,7 +23,7 @@ class CreateServer extends Migration
             $table->unsignedbigInteger('game_id');
             $table->foreign('game_id')
                 ->references('id')
-                ->on('game')
+                ->on('games')
                 ->onUpdate('cascade');
             $table->string('name')->unique();
             $table->string('ip')->unique();

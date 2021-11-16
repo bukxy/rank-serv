@@ -10,8 +10,11 @@ class Image extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'path',
+        'game_id',
+        'server_id',
     ];
 
     public function game() {

@@ -10,7 +10,7 @@
             <li><a href="#" class="nav-link px-2 link-dark">FAQ</a></li>
         </ul>
 
-        <form class="col-12 w-75 mb-3 mb-lg-0 me-lg-5">
+        <form class="col-6 w-75 mb-3 mb-lg-0 me-lg-5">
             <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
 
@@ -27,11 +27,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('add-server') }}">{{ __('Add Server') }}</a>
                 </li>
-                <div class="dropdown text-end">
-                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="dropdown">
+                    <a class="d-block link-dark text-decoration-none dropdown-toggle" type="button" id="dropdownMenuUser" data-toggle="dropdown">
                         <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                     </a>
-                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <ul class="dropdown-menu text-small dropdown-menu-right" aria-labelledby="dropdownMenuUser">
                         <li><a class="dropdown-item" href="{{ route('my-account') }}">Profile</a></li>
                         <li><a class="dropdown-item" href="{{ route('my-servers') }}">My Server(s)</a></li>
                         <li><a class="dropdown-item" href="{{ route('my-settings') }}">Settings</a></li>
