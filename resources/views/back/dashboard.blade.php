@@ -324,3 +324,8 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script src="{{ asset('js/back/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('js/back/chart-pie-demo.js') }}"></script>
+@endsection

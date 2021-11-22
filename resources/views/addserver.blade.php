@@ -16,9 +16,9 @@
                     <div class="mb-3 col-7">
                         <div class="form-group">
                             <select class="form-control js-single-game" id="game" name="game">
-                                <option value="gameId1">Game Name1</option>
-                                <option value="gameId2">Game Name2</option>
-                                <option value="gameId3">Game Name3</option>
+                                @foreach($games as $game)
+                                    <option value="{{ $game->id }}">{{ __($game->name) }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                         @enderror
                         <div class="col-10">
                             <div class="form-group">
-                                <select class="form-control js-add-game-tag" id="tag" name="tag[]" multiple="multiple">
+                                <select class="form-control js-add-server-tag" id="tag" name="tag[]" multiple="multiple">
                                     <option value="tagId1">Tag Name1</option>
                                     <option value="tagId2">Tag Name2</option>
                                     <option value="tagId3">Tag Name3</option>

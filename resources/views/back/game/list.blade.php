@@ -24,37 +24,38 @@
                 </button>
             </div>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable">
+        <div class="card-body p-1 mt-4">
+            <div class="table-responsive col-12">
+                <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
                     <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Image</th>
-                            <th>Tags</th>
-                            <th>Servers</th>
-                            <th>Settings</th>
-                        </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Image</th>
+                        <th>Tags</th>
+                        <th>Servers</th>
+                        <th>Settings</th>
+                    </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Image</th>
-                            <th>Tags</th>
-                            <th>Servers</th>
-                            <th>Settings</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
-                    @foreach($games as $game)
-                        <tr>
-                            <td>{{ $game->name }}</td>
-                            <td><img width="50" height="auto" src="{{ asset('storage/siteImage/'.$game->image->path) }}" alt="{{ $game->alt }}"></td>
-                            <td>{{ $game->tag }}</td>
-                            <td>{{ $game->servers }}</td>
-                        </tr>
-                    @endforeach
+                        @foreach($games as $game)
+                            <tr>
+                                <td>{{ $game->name }}</td>
+                                <td><img width="50" height="auto" src="{{ asset('storage/siteImage/'.$game->image->path) }}" alt="{{ $game->alt }}"></td>
+                                <td>{{ $game->tagCount }}</td>
+                                <td>{{ $game->servers }}</td>
+                                <td></td>
+                            </tr>
+                        @endforeach
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Name</th>
+                        <th>Image</th>
+                        <th>Tags</th>
+                        <th>Servers</th>
+                        <th>Settings</th>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

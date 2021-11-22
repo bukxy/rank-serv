@@ -37,11 +37,7 @@
         </div>
         <div class="col-8">
             <div class="form-group">
-                <select class="form-control js-multiple-tag" id="tag" name="tag[]" multiple="multiple">
-                    <option value="tagId1">Tag Name1</option>
-                    <option value="tagId2">Tag Name2</option>
-                    <option value="tagId3">Tag Name3</option>
-                </select>
+                <select class="form-control js-add-game-tag" id="tag" name="tag[]" multiple="multiple"></select>
             </div>
         </div>
     </div>
