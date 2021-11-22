@@ -8,11 +8,8 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-        For more information about DataTables, please visit the
-        <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.
-    </p>
+
+    @include('flash-message')
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 row">
@@ -32,28 +29,28 @@
                 <table class="table table-bordered" id="dataTable">
                     <thead>
                         <tr>
-                            <th>Image</th>
                             <th>Name</th>
-                            <th>Tags Number</th>
-                            <th>Servers Number</th>
+                            <th>Image</th>
+                            <th>Tags</th>
+                            <th>Servers</th>
                             <th>Settings</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Image</th>
                             <th>Name</th>
-                            <th>Tags Number</th>
-                            <th>Servers Number</th>
+                            <th>Image</th>
+                            <th>Tags</th>
+                            <th>Servers</th>
                             <th>Settings</th>
                         </tr>
                     </tfoot>
                     <tbody>
                     @foreach($games as $game)
                         <tr>
-                            <td><img src="{{ $game->image }}"></td>
                             <td>{{ $game->name }}</td>
-                            <td>{{ $game->tags }}</td>
+                            <td><img width="50" height="auto" src="{{ asset('storage/siteImage/'.$game->image->path) }}" alt="{{ $game->alt }}"></td>
+                            <td>{{ $game->tag }}</td>
                             <td>{{ $game->servers }}</td>
                         </tr>
                     @endforeach

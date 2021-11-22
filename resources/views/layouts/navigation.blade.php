@@ -28,7 +28,7 @@
                     <a class="nav-link" href="{{ route('add-server') }}">{{ __('Add Server') }}</a>
                 </li>
                 <div class="dropdown">
-                    <a class="d-block link-dark text-decoration-none dropdown-toggle" type="button" id="dropdownMenuUser" data-toggle="dropdown">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownMenuUser" data-toggle="dropdown">
                         <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu text-small dropdown-menu-right" aria-labelledby="dropdownMenuUser">

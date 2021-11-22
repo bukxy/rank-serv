@@ -18,8 +18,8 @@ class Image extends Migration
             $table->foreignId('user_id');
             $table->foreignId('game_id')->nullable();
             $table->foreignId('server_id')->nullable();
-            $table->string('name')->nullable();
-            $table->string('path')->nullable();
+            $table->string('alt');
+            $table->string('path');
             $table->timestamps();
         });
     }

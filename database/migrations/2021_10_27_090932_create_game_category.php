@@ -22,7 +22,7 @@ class CreateGameCategory extends Migration
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
             $table->string('name')->unique();
-            $table->string('image')->nullable();
+            $table->string('image_id')->nullable();
             $table->json('tag')->nullable();
             $table->timestamps();
         });
