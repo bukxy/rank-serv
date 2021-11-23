@@ -13,7 +13,6 @@ class Game extends Model
         'user_id',
         'name',
         'image_id',
-        'tag',
     ];
 
     public function servers() {
@@ -22,6 +21,10 @@ class Game extends Model
 
     public function image() {
         return $this->hasOne(Image::class);
+    }
+
+    public function tags() {
+        return $this->hasMany(Tag::class);
     }
 
 }

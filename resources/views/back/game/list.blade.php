@@ -1,11 +1,11 @@
 @extends('back.layouts.main')
 
 @section('pageTitle')
-    {{ __("Game") }}
+    Liste des Jeux
 @endsection
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid mt-5">
 
     <!-- Page Heading -->
 
@@ -14,7 +14,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 row">
             <div class="col-11 align-items-center d-flex">
-                <h6 class="font-weight-bold align-items-center text-primary mb-0">DataTables Example</h6>
+                <h6 class="font-weight-bold align-items-center text-primary mb-0">Liste des Jeux</h6>
             </div>
             <div class="col-1 d-flex">
                 <button class="btn btn-success">
@@ -26,35 +26,41 @@
         </div>
         <div class="card-body p-1 mt-4">
             <div class="table-responsive col-12">
-                <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+                <table id="dataTable" class="table table-striped table-bordered">
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Tags</th>
-                        <th>Servers</th>
-                        <th>Settings</th>
-                    </tr>
+                        <tr>
+                            <th class="col-1 text-center">#</th>
+                            <th class="col-6 text-center" >Name</th>
+                            <th class="col-2 text-center" >Image</th>
+                            <th class="col-1 text-center" >Tags</th>
+                            <th class="col-1 text-center" >Servers</th>
+                            <th class="col-1 text-center">Settings</th>
+                        </tr>
                     </thead>
                     <tbody>
                         @foreach($games as $game)
                             <tr>
-                                <td>{{ $game->name }}</td>
-                                <td><img width="50" height="auto" src="{{ asset('storage/siteImage/'.$game->image->path) }}" alt="{{ $game->alt }}"></td>
-                                <td>{{ $game->tagCount }}</td>
-                                <td>{{ $game->servers }}</td>
-                                <td></td>
+                                <td class="text-center align-middle">{{ $game->id }}</td>
+                                <td class="text-center align-middle">{{ $game->name }}</td>
+                                <td class="text-center align-middle"><img width="50" height="auto" src="{{ asset('storage/siteImage/'.$game->image->path) }}" alt="{{ $game->name }}"></td>
+                                <td class="text-center align-middle">{{ count($game->tags) }}</td>
+                                <td class="text-center align-middle">{{ count($game->servers) }}</td>
+                                <td class="text-center align-middle">
+                                    <a href="#" class="btn btn-info btn-circle"><i class="far fa-edit"></i></a>
+                                    <a href="#" class="btn btn-danger btn-circle"><i class="far fa-trash-alt"></i></a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Tags</th>
-                        <th>Servers</th>
-                        <th>Settings</th>
-                    </tr>
+                        <tr>
+                            <th class="col-1 text-center">#</th>
+                            <th class="col-2 text-center" >Name</th>
+                            <th class="col-2 text-center" >Image</th>
+                            <th class="col-1 text-center" >Tags</th>
+                            <th class="col-1 text-center" >Servers</th>
+                            <th class="text-center">Settings</th>
+                        </tr>
                     </tfoot>
                 </table>
             </div>

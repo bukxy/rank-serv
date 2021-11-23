@@ -19,11 +19,10 @@ class CreateGameCategory extends Migration
             $table->foreign('user_id')
                     ->references('id')
                     ->on('users')
-                    ->onDelete('cascade')
                     ->onUpdate('cascade');
             $table->string('name')->unique();
             $table->string('image_id')->nullable();
-            $table->json('tag')->nullable();
+            $table->foreignId('tag_id')->nullable();
             $table->timestamps();
         });
     }
@@ -35,6 +34,6 @@ class CreateGameCategory extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('game');
+        Schema::dropIfExists('games');
     }
 }

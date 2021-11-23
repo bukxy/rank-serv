@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Game;
 use App\Models\Server;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
 
 class ServerController extends Controller
 {
     public function new() {
-        return view('addserver');
+        return view('addserver', [
+                'games' => Game::all()
+            ]);
     }
 
     public function newStore(Request $req) {
@@ -32,6 +36,10 @@ class ServerController extends Controller
             'twitch' => $req->twitch,
             'youtube' => $req->youtube,
         ]);
+    }
+
+    public function getGameTags($id) {
+        return response()->json(['success' => Tag::where('game_id', $id)->get()]);
     }
 
 }
