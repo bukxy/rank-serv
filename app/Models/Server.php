@@ -10,6 +10,8 @@ class Server extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
+        'game_id',
         'name',
         'ip',
         'port',
@@ -18,6 +20,7 @@ class Server extends Model
         'access',
         'description',
         'tag',
+        'language',
         'discord',
         'teamspeak',
         'mumble',
@@ -27,5 +30,9 @@ class Server extends Model
 
     public function game() {
         return $this->hasMany(Game::class);
+    }
+
+    public function tags() {
+        return $this->hasMany(Tag::class);
     }
 }

@@ -30,10 +30,10 @@
                     <thead>
                         <tr>
                             <th class="col-1 text-center">#</th>
-                            <th class="col-6 text-center" >Name</th>
-                            <th class="col-2 text-center" >Image</th>
-                            <th class="col-1 text-center" >Tags</th>
-                            <th class="col-1 text-center" >Servers</th>
+                            <th class="col-6 text-center">Name</th>
+                            <th class="col-2 text-center">Image</th>
+                            <th class="col-1 text-center">Tags</th>
+                            <th class="col-1 text-center">Servers</th>
                             <th class="col-1 text-center">Settings</th>
                         </tr>
                     </thead>

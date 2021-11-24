@@ -1,7 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
-    "/js/front.js": "/js/front.js",
-    "/js/back.js": "/js/back.js",
+    "/js/front/front.js": "/js/front/front.js",
+    "/js/back/back.js": "/js/back/back.js",
+    "/js/back/language.js": "/js/back/language.js",
     "/css/app.css": "/css/app.css",
     "/js/tinymce/.npmignore": "/js/tinymce/.npmignore",
     "/js/tinymce/bower.json": "/js/tinymce/bower.json",

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function($) {
     let selectGame = $('.js-single-game');
         selectGame.select2({
             placeholder: 'Select a game'

@@ -23,6 +23,17 @@
                         </div>
                     </div>
                     <div class="col-12 row">
+                        <div class="col-2">
+                            <label for="name" class="form-label">Name</label>
+                        </div>
+                        @error('slots')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="My server name">
+                        </div>
+                    </div>
+                    <div class="col-12 row">
                         <div class="col-lg-2">
                             <label for="ip" class="form-label">Server IP</label>
                         </div>

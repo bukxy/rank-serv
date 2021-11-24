@@ -20,4 +20,7 @@ class Image extends Model
     public function game() {
         return $this->hasOne(Game::class);
     }
+    public function language() {
+        return $this->belongsTo(Language::class);
+    }
 }

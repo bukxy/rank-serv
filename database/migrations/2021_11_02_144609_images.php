@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Image extends Migration
+class Images extends Migration
 {
     /**
      * Run the migrations.
@@ -18,8 +18,9 @@ class Image extends Migration
             $table->foreignId('user_id');
             $table->foreignId('game_id')->nullable();
             $table->foreignId('server_id')->nullable();
+            $table->foreignId('language_id')->nullable();
             $table->string('alt');
-            $table->string('path');
+            $table->string('path')->unique();
             $table->timestamps();
         });
     }

@@ -18,10 +18,10 @@ class ServerController extends Controller
     }
 
     public function newStore(Request $req) {
-//        dd($req);
+//        dd(json_encode($req->tag));
         Server::create([
             'user_id' => Auth::id(),
-            'game_id' => $req->game_id,
+            'game_id' => $req->game,
             'name' => $req->name,
             'ip' => $req->ip,
             'port' => $req->port,
@@ -29,7 +29,8 @@ class ServerController extends Controller
             'slots' => $req->slots,
             'access' => $req->access,
             'desc' => $req->desc,
-            'tag' => $req->tag,
+            'tag' => json_encode($req->tag),
+            'lang' => json_encode($req->tag),
             'discord' => $req->discord,
             'teamspeak' => $req->teamspeak,
             'mumble' => $req->mumble,
