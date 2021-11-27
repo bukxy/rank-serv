@@ -9,9 +9,9 @@ $(document).ready(function($) {
             placeholder: 'Select tags'
         });
 
+    let _token = $('meta[name="csrf-token"]').attr('content')
     selectGame.on('change',function(e){
         e.preventDefault();
-        let _token = $('meta[name="csrf-token"]').attr('content')
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': _token
@@ -36,4 +36,16 @@ $(document).ready(function($) {
             }
         });
     });
+
+    let listHost = $('.js-add-server-host');
+    listHost.select2({
+        placeholder: 'Select Country',
+    });
+    listHost.val(null).trigger('change');
+
+    let listLanguage = $('.js-add-server-lang');
+    listLanguage.select2({
+        placeholder: 'Select lang',
+    });
+    listLanguage.val(null).trigger('change');
 });

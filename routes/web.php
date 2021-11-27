@@ -37,4 +37,3 @@ Route::middleware(['auth'])->group(function() {
     });
     include __DIR__.'/back.php';
 });
-

@@ -18,8 +18,7 @@ class CreateServers extends Migration
             $table->foreignId('user_id');
             $table->foreignId('game_id');
             $table->string('name')->unique();
-            $table->string('ip')->unique();
-            $table->string('port')->unique();
+            $table->string('ip');
             $table->string('website')->nullable();
             $table->string('slots');
             $table->string('access');
@@ -42,6 +41,6 @@ class CreateServers extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('game');
+        Schema::dropIfExists('servers');
     }
 }
