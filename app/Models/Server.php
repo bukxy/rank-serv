@@ -13,6 +13,7 @@ class Server extends Model
         'user_id',
         'game_id',
         'name',
+        'slug',
         'ip',
         'website',
         'slots',
@@ -26,6 +27,8 @@ class Server extends Model
         'mumble',
         'twitch',
         'youtube',
+        'vote',
+        'click',
     ];
 
     public function game() {

@@ -15,13 +15,10 @@ class CreateGamesCategory extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')
-                    ->references('id')
-                    ->on('users')
-                    ->onUpdate('cascade');
+            $table->foreignId('user_id');
             $table->string('name')->unique();
-            $table->string('image_id')->nullable();
+            $table->string('slug')->unique();
+            $table->foreignId('image_id')->nullable();
             $table->foreignId('tag_id')->nullable();
             $table->timestamps();
         });

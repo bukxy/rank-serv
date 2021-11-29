@@ -29,6 +29,7 @@ class ServerController extends Controller
             'user_id' => Auth::id(),
             'game_id' => $req->game,
             'name' => $req->name,
+            'slug' => slug_formater($req->name),
             'ip' => $ip,
             'host' => $req->host,
             'website' => $req->website,

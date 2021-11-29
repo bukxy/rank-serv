@@ -99,6 +99,8 @@
         </div>
     </div>
 
+    @include('back.layouts.delete-confirm')
+
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/back/sb-admin-2.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>

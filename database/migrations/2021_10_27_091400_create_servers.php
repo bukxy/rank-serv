@@ -17,7 +17,8 @@ class CreateServers extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('game_id');
-            $table->string('name')->unique();
+            $table->string('name');
+            $table->string('slug');
             $table->string('ip');
             $table->string('website')->nullable();
             $table->string('slots');
@@ -30,6 +31,8 @@ class CreateServers extends Migration
             $table->string('mumble')->nullable();
             $table->string('twitch')->nullable();
             $table->string('youtube')->nullable();
+            $table->json('vote')->nullable();
+            $table->json('click')->nullable();
             $table->timestamps();
         });
     }

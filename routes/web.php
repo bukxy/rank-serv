@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\front\FrontController;
 use App\Http\Controllers\front\ServerController;
 use App\Http\Controllers\front\UserController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/', [FrontController::class, 'index'])->name('index');
 
 Route::middleware(['auth'])->group(function() {
     Route::prefix('my-account')->group(function () {
@@ -37,3 +37,7 @@ Route::middleware(['auth'])->group(function() {
     });
     include __DIR__.'/back.php';
 });
+
+Route::get('/{game}', [FrontController::class, 'getServersByGame'])->name('getServersByGame');
+Route::get('/{game}/{server}', [FrontController::class, 'getServer'])->name('getServer');
+

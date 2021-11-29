@@ -20,7 +20,8 @@ $(document).ready(function($) {
             success: function(res){
                 if(res.status == 400) {
                     $.each(res.errors, function (key, err_value) {
-
+                        $('#addLanguage .alert-danger').removeClass('d-none');
+                        $('#addLanguage .alert-danger strong').text(err_value);
                     });
                 }
                 if(res.status == 200) {

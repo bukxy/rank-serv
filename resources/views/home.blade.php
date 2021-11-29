@@ -1,25 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-lg">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
+        @foreach($games as $g)
+            <a href="{{ route('getServersByGame', ['game' => $g->slug]) }}"><div class="card" style="width: 18rem;">
+                <img src="{{ asset('storage/siteImage/' . $g->image->path) }}" class="card-img-top" alt="{{ $g->name }}">
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                        <div class="alert alert-success mt-5" role="alert">
-                            Boostrap 5 is working!
-                        </div>
-                        {{ __('You are logged in!') }}
+                    <h5 class="card-title">{{ $g->name }}</h5>
                 </div>
             </div>
-        </div>
+            </a>
+        @endforeach
     </div>
 </div>
 @endsection

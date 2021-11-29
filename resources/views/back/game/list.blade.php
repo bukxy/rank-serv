@@ -46,8 +46,8 @@
                                 <td class="text-center align-middle">{{ count($game->tags) }}</td>
                                 <td class="text-center align-middle">{{ count($game->servers) }}</td>
                                 <td class="text-center align-middle">
-                                    <a href="#" class="btn btn-info btn-circle"><i class="far fa-edit"></i></a>
-                                    <a href="#" class="btn btn-danger btn-circle"><i class="far fa-trash-alt"></i></a>
+                                    <a href="{{ route('back.editGame', ['slug' => $game->slug]) }}" class="btn btn-info btn-circle"><i class="far fa-edit"></i></a>
+                                    <button type="button" value="{{ $game->id }}" class="btn btn-danger delete-js"><i class="far fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -67,4 +67,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript" src="{{ asset('js/back/game.js') }}"></script>
 @endsection

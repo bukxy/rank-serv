@@ -27,7 +27,8 @@ Route::middleware(['admin'])->group(function() {
             Route::get('/new', [GameController::class, 'add'])->name('back.addGame');
             Route::post('/new', [GameController::class, 'addStore'])->name('back.addGame.store');
             Route::get('/edit', [GameController::class, 'edit'])->name('back.editGame');
-            Route::post('/edit', [GameController::class, 'edit'])->name('back.editGame.store');
+            Route::post('/edit', [GameController::class, 'editStore'])->name('back.editGame.store');
+            Route::delete('/delete', [GameController::class, 'deleteStore'])->name('back.deleteGame.store');
         });
 
         Route::prefix('/server')->group(function() {

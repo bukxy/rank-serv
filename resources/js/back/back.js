@@ -5,4 +5,11 @@ $(document).ready(function($){
     });
 
     $('#dataTable').DataTable();
+
+    // Confirm delete
+    $('.delete-js').click((e) => {
+        let gameId = $(e.currentTarget).val();
+        $('#confirm-delete').modal('show');
+        $('#delete_id').val(gameId)
+    })
 });

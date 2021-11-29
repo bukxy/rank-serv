@@ -11,7 +11,6 @@ class Image extends Model
 
     protected $fillable = [
         'user_id',
-        'alt',
         'path',
         'game_id',
         'server_id',

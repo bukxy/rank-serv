@@ -18,8 +18,7 @@ class Images extends Migration
             $table->foreignId('user_id');
             $table->foreignId('game_id')->nullable();
             $table->foreignId('server_id')->nullable();
-            $table->foreignId('language_id')->nullable();
-            $table->string('alt');
+            $table->foreignId('language_id')->nullable();;
             $table->string('path')->unique();
             $table->timestamps();
         });
