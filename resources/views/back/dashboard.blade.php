@@ -1,7 +1,11 @@
-@extends('back.layout.main')
+@extends('back.layouts.main')
+
+@section('pageTitle')
+    {{ __("Dashboard") }}
+@endsection
+
 
 @section('content')
-
     <!-- Content Row -->
     <div class="row">
 
@@ -319,4 +323,4 @@
 
         </div>
     </div>
-@stop
+@endsection
