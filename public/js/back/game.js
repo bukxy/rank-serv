@@ -7,7 +7,6 @@
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
 /******/ (() => { // webpackBootstrap
-<<<<<<< HEAD
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./resources/js/back/game.js":
@@ -16,7 +15,7 @@
   \***********************************/
 /***/ (() => {
 
-eval("$(document).ready(function ($) {});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvYmFjay9nYW1lLmpzP2Q4OWYiXSwibmFtZXMiOlsiJCIsImRvY3VtZW50IiwicmVhZHkiXSwibWFwcGluZ3MiOiJBQUFBQSxDQUFDLENBQUNDLFFBQUQsQ0FBRCxDQUFZQyxLQUFaLENBQWtCLFVBQVNGLENBQVQsRUFBWSxDQUM3QixDQUREIiwic291cmNlc0NvbnRlbnQiOlsiJChkb2N1bWVudCkucmVhZHkoZnVuY3Rpb24oJCkge1xufSk7XG4iXSwiZmlsZSI6Ii4vcmVzb3VyY2VzL2pzL2JhY2svZ2FtZS5qcy5qcyIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/js/back/game.js\n");
+eval("$(document).ready(function ($) {});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvYmFjay9nYW1lLmpzP2Q4OWYiXSwibmFtZXMiOlsiJCIsImRvY3VtZW50IiwicmVhZHkiXSwibWFwcGluZ3MiOiJBQUFBQSxDQUFDLENBQUNDLFFBQUQsQ0FBRCxDQUFZQyxLQUFaLENBQWtCLFVBQVNGLENBQVQsRUFBWSxDQUM3QixDQUREIiwic291cmNlc0NvbnRlbnQiOlsiJChkb2N1bWVudCkucmVhZHkoZnVuY3Rpb24oJCkge1xyXG59KTtcclxuIl0sImZpbGUiOiIuL3Jlc291cmNlcy9qcy9iYWNrL2dhbWUuanMuanMiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/js/back/game.js\n");
 
 /***/ })
 
@@ -31,10 +30,3 @@ eval("$(document).ready(function ($) {});//# sourceURL=[module]\n//# sourceMappi
 /******/ 	
 /******/ })()
 ;
-=======
-/******/ 	"use strict";
-/******/
-/******/
-/******/ })()
-;
->>>>>>> main

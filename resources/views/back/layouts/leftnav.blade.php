@@ -62,7 +62,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('back.dashboard') }}">
+        <a class="nav-link" href="{{ route('back.user') }}">
             <i class="fas fa-users"></i>
             <span>Users</span></a>
     </li>

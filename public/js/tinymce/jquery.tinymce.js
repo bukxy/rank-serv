@@ -88,8 +88,4 @@ m.each(["append","prepend"],function(e,t){var n=s[t]=m.fn[t],r="prepend"===t;m.f
 m.each(["remove","replaceWith","replaceAll","empty"],function(e,t){var n=s[t]=m.fn[t];m.fn[t]=function(){return r.call(this,t),n.apply(this,arguments)}}),s.attr=m.fn.attr,
 // Makes sure that $('#tinymce_id').attr('value') gets the editors current HTML contents
 m.fn.attr=function(e,t){var n=this,i=arguments;if(!e||"value"!==e||!l(n))return s.attr.apply(n,i);if(t!==p)return o.call(n.filter(":tinymce"),t),s.attr.apply(n.not(":tinymce"),i),n;// return original set for chaining
-<<<<<<< HEAD
 var r=n[0],a=u(r);return a?a.getContent({save:!0}):s.attr.apply(m(r),i)}}}();
-=======
-var r=n[0],a=u(r);return a?a.getContent({save:!0}):s.attr.apply(m(r),i)}}}();
->>>>>>> main

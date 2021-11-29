@@ -4,8 +4,4 @@
 //     require('tinymce/plugins/image')
 //   ES2015:
 //     import 'tinymce/plugins/image'
-<<<<<<< HEAD
 require('./plugin.js');
-=======
-require('./plugin.js');
->>>>>>> main

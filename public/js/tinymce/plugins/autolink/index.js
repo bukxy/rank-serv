@@ -4,8 +4,4 @@
 //     require('tinymce/plugins/autolink')
 //   ES2015:
 //     import 'tinymce/plugins/autolink'
-<<<<<<< HEAD
 require('./plugin.js');
-=======
-require('./plugin.js');
->>>>>>> main

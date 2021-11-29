@@ -9420,8 +9420,4 @@ window.tinymce.Resource.add("tinymce.plugins.emoticons", {
     fitzpatrick_scale: false,
     category: "flags"
   }
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> main

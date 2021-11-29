@@ -4,8 +4,4 @@
 //     require('tinymce/plugins/nonbreaking')
 //   ES2015:
 //     import 'tinymce/plugins/nonbreaking'
-<<<<<<< HEAD
 require('./plugin.js');
-=======
-require('./plugin.js');
->>>>>>> main

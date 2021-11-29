@@ -3,6 +3,7 @@
 use App\Http\Controllers\back\BackController;
 use App\Http\Controllers\back\GameController;
 use App\Http\Controllers\back\LanguageController;
+use App\Http\Controllers\back\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +37,12 @@ Route::middleware(['admin'])->group(function() {
         });
 
         Route::prefix('/user')->group(function() {
-            Route::get('/', [BackController::class, 'dashboard'])->name('back.user');
+            Route::get('/', [UserController::class, 'list'])->name('back.user');
+            Route::get('/new', [UserController::class, 'add'])->name('back.addUser');
+            Route::post('/new', [UserController::class, 'addStore'])->name('back.addUser.store');
+            Route::get('/edit', [UserController::class, 'edit'])->name('back.editUser');
+            Route::post('/edit', [UserController::class, 'editStore'])->name('back.editUser.store');
+            Route::delete('/delete', [UserController::class, 'deleteStore'])->name('back.deleteUser.store');
         });
 
         Route::prefix('/language')->group(function() {

@@ -179,8 +179,4 @@ tinymce.IconManager.add('default', {
     'zoom-in': '<svg width="24" height="24"><path d="M16 17.3a8 8 0 111.4-1.4l4.3 4.4a1 1 0 01-1.4 1.4l-4.4-4.3zm-5-.3a6 6 0 100-12 6 6 0 000 12zm-1-9a1 1 0 012 0v6a1 1 0 01-2 0V8zm-2 4a1 1 0 010-2h6a1 1 0 010 2H8z" fill-rule="nonzero"/></svg>',
     'zoom-out': '<svg width="24" height="24"><path d="M16 17.3a8 8 0 111.4-1.4l4.3 4.4a1 1 0 01-1.4 1.4l-4.4-4.3zm-5-.3a6 6 0 100-12 6 6 0 000 12zm-3-5a1 1 0 010-2h6a1 1 0 010 2H8z" fill-rule="nonzero"/></svg>',
   }
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> main
