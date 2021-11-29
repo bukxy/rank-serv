@@ -4,4 +4,8 @@
 //     require('tinymce/plugins/pagebreak')
 //   ES2015:
 //     import 'tinymce/plugins/pagebreak'
+<<<<<<< HEAD
 require('./plugin.js');
+=======
+require('./plugin.js');
+>>>>>>> main

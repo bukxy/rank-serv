@@ -4,4 +4,8 @@
 //     require('tinymce/plugins/tabfocus')
 //   ES2015:
 //     import 'tinymce/plugins/tabfocus'
+<<<<<<< HEAD
 require('./plugin.js');
+=======
+require('./plugin.js');
+>>>>>>> main

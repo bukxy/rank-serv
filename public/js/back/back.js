@@ -7,6 +7,7 @@
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
 /******/ (() => { // webpackBootstrap
+<<<<<<< HEAD
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./resources/js/back/back.js":
@@ -64,3 +65,10 @@ eval("/*!\n * Chart.js v3.6.0\n * https://www.chartjs.org\n * (c) 2021 Chart.js 
 /******/ 	
 /******/ })()
 ;
+=======
+/******/ 	"use strict";
+/******/
+/******/
+/******/ })()
+;
+>>>>>>> main

@@ -4,4 +4,8 @@
 //     require('tinymce/plugins/noneditable')
 //   ES2015:
 //     import 'tinymce/plugins/noneditable'
+<<<<<<< HEAD
 require('./plugin.js');
+=======
+require('./plugin.js');
+>>>>>>> main

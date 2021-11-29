@@ -7,6 +7,7 @@
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
 /******/ (() => { // webpackBootstrap
+<<<<<<< HEAD
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./resources/js/front.js":
@@ -30,3 +31,10 @@ eval("$(document).ready(function ($) {\n  var selectGame = $('.js-single-game');
 /******/ 	
 /******/ })()
 ;
+=======
+/******/ 	"use strict";
+/******/
+/******/
+/******/ })()
+;
+>>>>>>> main
