@@ -39,13 +39,13 @@
                     <tbody>
                         @foreach($users as $u)
                             <tr>
-                                <td class="text-center align-middle">{{ $u->id }}</td>
-                                <td class="text-center align-middle">{{ $u->pseudo }}</td>
-                                <td class="text-center align-middle">{{ $u->email }}</td>
-                                <td class="text-center align-middle">{{ count($u->servers) }}</td>
-                                <td class="text-center align-middle">
-                                    <a href="{{ route('back.editUser', ['id' => $u->id]) }}" class="btn btn-info btn-circle"><i class="far fa-edit"></i></a>
-                                    <button type="button" value="{{ $u->id }}" class="btn btn-danger delete-js"><i class="far fa-trash-alt"></i></button>
+                                <td class="text-center align-middle p-1">{{ $u->id }}</td>
+                                <td class="text-center align-middle p-1">{{ $u->pseudo }}</td>
+                                <td class="text-center align-middle p-1">{{ $u->email }}</td>
+                                <td class="text-center align-middle p-1">{{ count($u->servers) }}</td>
+                                <td class="text-center align-middle p-1">
+                                    <a href="{{ route('back.editUser', ['id' => $u->id]) }}" class="btn btn-info btn-circle btn-sm"><i class="far fa-edit"></i></a>
+                                    <button type="button" value="{{ $u->id }}" class="btn btn-danger btn-sm delete-js"><i class="far fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         @endforeach

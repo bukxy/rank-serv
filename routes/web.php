@@ -38,6 +38,6 @@ Route::middleware(['auth'])->group(function() {
     include __DIR__.'/back.php';
 });
 
-Route::get('/{game}', [FrontController::class, 'getServersByGame'])->name('getServersByGame');
-Route::get('/{game}/{server}', [FrontController::class, 'getServer'])->name('getServer');
+Route::get('/{game}', [FrontController::class, 'listServersByGame'])->name('listServersByGame');
+Route::get('/{game}/{server}', [FrontController::class, 'serverInfo'])->name('serverInfo');
 
