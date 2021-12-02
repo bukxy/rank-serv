@@ -1,0 +1,95 @@
+.servers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+    box-shadow: 4px 4px 3px $border-color;
+    &.first {
+        border: solid 2px $gold;
+        & .rank {
+            background-color: $gold;
+        }
+    }
+    &.second {
+        border: solid 2px $silver;
+        & .rank {
+            background-color: $silver;
+        }
+    }
+    &.third {
+        border: solid 2px $bronze;
+        & .rank {
+            background-color: $bronze;
+        }
+    }
+    & .row {
+        margin: 0;
+        padding: 0;
+    }
+    & > .rank{
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        border: solid 1px $border-color;
+        border-radius: 3px;
+        padding: 0.3em 0.8em;
+        font-size: 15px;
+        font-weight: bold;
+        background-color: #f0f0f0;
+    }
+    & .avis,.clicks,.votes {
+        padding: 0.5em 0;
+    }
+    & .clicks {
+        border-left: solid 1px $border-color;
+        border-right: solid 1px $border-color;
+    }
+    & .logo {
+        position: absolute;
+        top: 64px;
+        left: -32px;
+        max-width: 64px;
+        max-height: 64px;
+        z-index: 1;
+    }
+    & .banner {
+        padding: 0;
+        & img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            max-height: 150px;
+        }
+    }
+    & .slots, .access, .ip, .tags, .langs {
+        border: solid 1px $border-color;
+        border-radius: 0.25em;
+        margin: 0.25em auto;
+        padding: 0.25em;
+        & span {
+            line-height: 2em;
+        }
+    }
+    & .slots-ip {
+        padding: 0 0.25em;
+        border-right: solid 1px $border-color;
+        & .slots {
+            & svg {
+                margin: 0 0 0 1.5em;
+            }
+        }
+        & .access {
+            border: none;
+            font-size: 1.2em;
+            & .fa-unlock {
+                color: $green;
+            }
+            & .fa-lock {
+                color: $red;
+            }
+        }
+    }
+    & .tags-langs {
+        padding: 0 0.25em;
+    }
+}

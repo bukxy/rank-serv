@@ -12,6 +12,8 @@ class Server extends Model
     protected $fillable = [
         'user_id',
         'game_id',
+        'banner_id',
+        'logo_id',
         'name',
         'slug',
         'ip',
@@ -19,8 +21,6 @@ class Server extends Model
         'slots',
         'access',
         'description',
-        'lang',
-        'tag',
         'language',
         'discord',
         'teamspeak',
@@ -36,6 +36,18 @@ class Server extends Model
     }
 
     public function tags() {
-        return $this->hasMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'tag_server', 'server_id', 'tag_id');
+    }
+
+    public function languages() {
+        return $this->belongsToMany(Language::class, 'lang_server', 'server_id', 'lang_id');
+    }
+
+    public function banner() {
+        return $this->hasOne(Image::class, 'id', 'banner_id');
+    }
+
+    public function logo() {
+        return $this->hasOne(Image::class, 'id', 'logo_id');
     }
 }

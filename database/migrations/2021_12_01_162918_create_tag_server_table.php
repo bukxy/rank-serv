@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Images extends Migration
+class CreateTagServerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class Images extends Migration
      */
     public function up()
     {
-        Schema::create('images', function(Blueprint $table) {
+        Schema::create('tag_server', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('game_id')->nullable();
-            $table->foreignId('server_id')->nullable();
-            $table->foreignId('language_id')->nullable();;
-            $table->string('path')->unique();
+            $table->foreignId('tag_id');
+            $table->foreignId('server_id');
         });
     }
 
@@ -30,6 +27,6 @@ class Images extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('tag_server');
     }
 }

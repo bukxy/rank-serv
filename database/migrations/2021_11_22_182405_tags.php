@@ -18,7 +18,6 @@ class Tags extends Migration
             $table->foreignId('user_id');
             $table->string('name');
             $table->foreignId('game_id');
-            $table->timestamps();
         });
     }
 

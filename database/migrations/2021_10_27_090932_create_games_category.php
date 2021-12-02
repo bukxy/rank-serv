@@ -19,7 +19,6 @@ class CreateGamesCategory extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->foreignId('image_id')->nullable();
-            $table->foreignId('tag_id')->nullable();
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     protected $fillable = [
         'user_id',
@@ -20,6 +21,6 @@ class Tag extends Model
     }
 
     public function servers() {
-        return $this->belongsTo(Server::class);
+        return $this->belongsToMany(Server::class);
     }
 }
