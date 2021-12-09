@@ -32,9 +32,4 @@ $(document).ready(function($) {
             },
         });
     });
-
-    $('#refresh').click(function(e) {
-       e.preventDefault()
-        location.reload();
-    });
 });

@@ -42,7 +42,7 @@
                             <tr>
                                 <td class="text-center align-middle">{{ $game->id }}</td>
                                 <td class="text-center align-middle">{{ $game->name }}</td>
-                                <td class="text-center align-middle"><img width="50" height="auto" src="{{ asset('storage/siteImage/'.$game->image->path) }}" alt="{{ $game->name }}"></td>
+                                <td class="text-center align-middle"><img width="50" height="auto" src="{{ asset('storage/media/'.$game->image->path) }}" alt="{{ $game->name }}"></td>
                                 <td class="text-center align-middle">{{ count($game->tags) }}</td>
                                 <td class="text-center align-middle">{{ count($game->servers) }}</td>
                                 <td class="text-center align-middle">

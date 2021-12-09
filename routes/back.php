@@ -27,8 +27,13 @@ Route::middleware(['admin'])->group(function() {
             Route::get('/', [GameController::class, 'list'])->name('back.game');
             Route::get('/new', [GameController::class, 'add'])->name('back.addGame');
             Route::post('/new', [GameController::class, 'addStore'])->name('back.addGame.store');
-            Route::get('/edit/{slug}', [GameController::class, 'edit'])->name('back.editGame');
-            Route::post('/edit', [GameController::class, 'editStore'])->name('back.editGame.store');
+            Route::prefix('/edit')->group(function() {
+                Route::get('/{slug}', [GameController::class, 'edit'])->name('back.editGame');
+                Route::post('/{slug}', [GameController::class, 'editStore'])->name('back.editGame.store');
+                Route::post('/{slug}/tag/add', [GameController::class, 'tagAdd']); // ajax POST
+                Route::post('/tag/{id}', [GameController::class, 'tagGet']); // ajax GET information
+                Route::post('/tag/store/{id}', [GameController::class, 'tagEditStore']); // ajax POST
+            });
             Route::delete('/delete', [GameController::class, 'deleteStore'])->name('back.deleteGame.store');
         });
 
@@ -47,7 +52,7 @@ Route::middleware(['admin'])->group(function() {
 
         Route::prefix('/language')->group(function() {
             Route::get('/', [LanguageController::class, 'list'])->name('back.language');
-            Route::post('/', [LanguageController::class, 'addStore']);
+            Route::post('/', [LanguageController::class, 'addStore']); // ajax
         });
 
     });
