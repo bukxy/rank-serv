@@ -5,41 +5,54 @@ $(document).ready(function($) {
     });
 
     /*
-    Add game tag
+        Add game tag
      */
     let _token = $('meta[name="csrf-token"]').attr('content')
-    $("#addTag-ajax").on('submit' ,function(e){
+    $('button[data-target="#addGameTag"]').click(function(e) {
         e.preventDefault();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': _token
-            }
-        });
-        $.ajax({
-            type: "POST",
-            url: "/dashboard/game/tage/add",
-            data: {
-                _token
-            },
-            success: function(res){
-                if(res.status == 400) {
-                    $.each(res.errors, function (key, err_value) {
-                        $('#addTag .alert-danger').removeClass('d-none');
-                        $('#addTag .alert-danger strong').text(err_value);
-                    });
+        let id = $(this).data('gameid');
+        $("#addGameTag-ajax").on('submit', function (e) {
+            e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': _token
                 }
-                if(res.status == 200) {
-                    $('#addTag input').val('');
-                    $('#addTag .alert-success').removeClass('d-none');
-                    $('#addTag .alert-success strong').text(res.success);
-                }
-            },
-        });
+            });
+            $.ajax({
+                type: "POST",
+                url: "/dashboard/game/edit/tag/add",
+                data: {
+                    _token,
+                    gameid: id,
+                    name: $('#addGameTag-ajax input[name="name"]').val()
+                },
+                success: function (res) {
+                    let error = $('#addGameTag .alert-danger');
+                    let success = $('#addGameTag .alert-success');
+                    if (res.status == 400) {
+                        if (!success.hasClass('d-none')) {
+                            success.addClass('d-none');
+                        }
+                        $.each(res.errors, function (key, err_value) {
+                            error.removeClass('d-none');
+                            $('#addGameTag .alert-danger strong').text(err_value);
+                        });
+                    }
+                    if (res.status == 200) {
+                        if (!error.hasClass('d-none')) {
+                            error.addClass('d-none');
+                        }
+                        $('#addGameTag input').val('');
+                        success.removeClass('d-none');
+                        $('#addGameTag .alert-success strong').text(res.success);
+                    }
+                },
+            });
+        })
     });
 
     /*
-    Edit game tag
+        Edit game tag
      */
     $('button[data-target="#editGameTag"]').on('click', function(e){
         e.preventDefault();
@@ -50,9 +63,12 @@ $(document).ready(function($) {
             data: {id, _token},
             success: function(res){
                 let error = $('#editGameTag .alert-danger');
+                let success = $('#editGameTag .alert-success')
                 let inputReadOnly = $('#editGameTag input[readonly]');
                 if(res.status == 400) {
-                    error.removeClass('d-none');
+                    if(!success.hasClass('d-none')){
+                        success.addClass('d-none');
+                    }
                     inputReadOnly.empty();
                     $('#editGameTag .alert-danger strong').text(res.error);
                 }
@@ -63,7 +79,6 @@ $(document).ready(function($) {
                     inputReadOnly.empty();
                     inputReadOnly.empty();
                     inputReadOnly.val(res.success.name);
-
                     $("#editGameTag-ajax").on('submit', function(e){
                         e.preventDefault();
                         $.ajaxSetup({
@@ -78,6 +93,9 @@ $(document).ready(function($) {
                             },
                             success: function(res){
                                 if(res.status == 400) {
+                                    if(!success.hasClass('d-none')){
+                                        success.addClass('d-none');
+                                    }
                                     $.each(res.errors, function (key, err_value) {
                                         success.addClass('d-none');
                                         error.removeClass('d-none');
@@ -85,6 +103,9 @@ $(document).ready(function($) {
                                     });
                                 }
                                 if(res.status == 200) {
+                                    if(!error.hasClass('d-none')){
+                                        error.addClass('d-none');
+                                    }
                                     success.removeClass('d-none');
                                     error.addClass('d-none');
                                     $('#editGameTag .alert-success strong').text(res.success);

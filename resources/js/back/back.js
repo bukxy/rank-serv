@@ -4,12 +4,14 @@ $(document).ready(function($){
 
     // Confirm delete
     $('.delete-js').click((e) => {
-        let gameId = $(e.currentTarget).val();
-        $('#confirm-delete').modal('show');
+        let gameId = $(e.currentTarget).data('id');
         $('#delete_id').val(gameId)
+        $('#confirm-delete form span').text($(e.currentTarget).data('name'));
+        $('#confirm-delete').modal('show');
     })
 
-    $('#refresh').click(function(e) {
+    // refresh page button
+    $('button[data-refresh="refresh"]').click(function(e) {
         e.preventDefault()
         location.reload();
     });

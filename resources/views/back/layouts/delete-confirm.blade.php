@@ -13,12 +13,12 @@
                 <input type="hidden" id="delete_id" name="id">
                 <div class="modal-body">
                     <div class="alert alert-warning" role="alert">
-                        Êtes vous sûr de bien vouloir supprimer le jeu "<span class="font-weight-bold" id="gameName"></span>"
+                        Êtes vous sûr de bien vouloir supprimer @yield('confirm-content-name') "<span class="font-weight-bold"></span>"
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-                    <button type="submit" class="btn btn-danger">Oui</button>
+                    <button type="submit" class="btn btn-danger" data-refresh="refresh">Oui</button>
                 </div>
             </form>
         </div>

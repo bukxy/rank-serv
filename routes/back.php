@@ -30,9 +30,12 @@ Route::middleware(['admin'])->group(function() {
             Route::prefix('/edit')->group(function() {
                 Route::get('/{slug}', [GameController::class, 'edit'])->name('back.editGame');
                 Route::post('/{slug}', [GameController::class, 'editStore'])->name('back.editGame.store');
-                Route::post('/{slug}/tag/add', [GameController::class, 'tagAdd']); // ajax POST
-                Route::post('/tag/{id}', [GameController::class, 'tagGet']); // ajax GET information
-                Route::post('/tag/store/{id}', [GameController::class, 'tagEditStore']); // ajax POST
+                Route::prefix('/tag')->group(function() {
+                    Route::post('/add', [GameController::class, 'tagAdd']); // ajax POST
+                    Route::post('/{id}', [GameController::class, 'tagGet']); // ajax GET information
+                    Route::post('/store/{id}', [GameController::class, 'tagEditStore']); // ajax POST
+                    Route::delete('/delete', [GameController::class, 'deleteGameTagStore'])->name('back.deleteGameTag.store');
+                });
             });
             Route::delete('/delete', [GameController::class, 'deleteStore'])->name('back.deleteGame.store');
         });

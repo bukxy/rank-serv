@@ -109,7 +109,7 @@ class GameController extends Controller
             'slug' => slug_formater($req->name)
         ]);
 
-        return redirect()->back()->with('success','Jeu édité !');
+        return redirect()->route('back.game')->with('success','Jeu édité !');
     }
 
     public function deleteStore(Request $req) {
@@ -139,7 +139,7 @@ class GameController extends Controller
     }
 
     /*
-     * AJAX ADD TAG
+     * AJAX ADD TAG -> back/game.js
      */
     public function tagAdd(Request $req) {
         $validator = Validator::make($req->all(),[
@@ -151,11 +151,20 @@ class GameController extends Controller
                 'errors' => $validator->messages()
             ]);
         }
+        $game = Game::where('id', $req->gameid)->first();
+        if($game !== null) {
+            Tag::create([
+                'user_id'    => Auth::id(),
+                'name'       => $req->name,
+                'game_id'   => $game->id
+            ]);
+        } else {
+            return response()->json([
+                'status' => 400,
+                'errors' => "Le Game Id \"".$req->gameid."\" n'éxiste pas!"
+            ]);
+        }
 
-        Tag::create([
-           'user_id'    => Auth::id(),
-           'name'
-        ]);
         return response()->json([
             'status' => 200,
             'success' => "Le tag \"".$req->name."\" à bien été ajouté!"
@@ -163,7 +172,7 @@ class GameController extends Controller
     }
 
     /*
-     * AJAX TAG EDIT
+     * AJAX TAG EDIT -> back/game.js
      */
     public function tagGet(Request $req) {
         $tag = Tag::where('id', $req->id)->first();
@@ -204,6 +213,19 @@ class GameController extends Controller
                 'status' => 200,
                 'success' => "Le tag \"".$tag->name."\" à été renommé en \"".$req->name."\" !"
             ]);
+        }
+    }
+
+    public function deleteGameTagStore(Request $req) {
+        $validator = Validator::make($req->all(),[
+            'id' => 'required',
+        ]);
+        $tag = Tag::where('id', $req->id)->first();
+        if($tag !== null) {
+            $tag->delete();
+            return redirect()->back()->with('success', 'Le tag "'.$tag->name.'" à été supprimé  !');
+        } else {
+            return redirect()->back()->with('error', 'Le jeu avec l\'id "'.$req->id.'" est introuvable !');
         }
     }
 }
