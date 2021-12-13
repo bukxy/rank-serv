@@ -15,10 +15,9 @@ use Symfony\Component\HttpFoundation\Request;
 class GameController extends Controller
 {
     public function list() {
-        $g = Game::with('image')->get();
         return view('back.game.list',[
-            'games' => $g
-        ]);
+            'games' => Game::all()
+        ])->with('image', 'logo');
     }
 
     public function add() {
@@ -29,32 +28,48 @@ class GameController extends Controller
 
         $req->validate([
             'name' => 'required|max:255',
+            'logo' => 'required|mimes:png,jpg,jpeg|max:2048',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
-            'tag'  =>  'required'
+            'tag'  =>  'nullable'
         ]);
 
-        if($req->file() && $req->name) {
-            $req->file('image')->store('public/ws');
-            $path = $req->file('image')->hashName();
-            $img = new Image([
-                'user_id'   => Auth::id(),
-                'path'      => $path,
-            ]);
-            $img->save();
-            $image = Image::where('path', $path)->first();
+        /*
+         * LOGO
+         */
+        $path1 = $req->name.'-logo.'.$req->file('image')->extension();
+        $req->file('logo')->storeAs('public/ws', $path1);
+        Image::create([
+            'user_id'   => Auth::id(),
+            'path'      => $path1,
+        ]);
+        $logo = Image::where('path', $path1)->first();
 
-            $game = new Game([
-                'user_id'   => Auth::id(),
-                'name'      => $req->name,
-                'slug'      => slug_formater($req->name),
-                'image_id'  => $image->id,
-            ]);
-            $game->save();
+        /*
+         * IMAGE
+         */
+        $path2 = $req->name.'.'.$req->file('image')->extension();
+        $req->file('image')->storeAs('public/ws', $path2);
+        Image::create([
+            'user_id'   => Auth::id(),
+            'path'      => $path2,
+        ]);
+        $image = Image::where('path', $path2)->first();
 
-            $i = Game::where('image_id', $image->id)->first();
-            $image->game_id = $i->id;
-            $image->save();
+        Game::create([
+            'user_id'   => Auth::id(),
+            'name'      => $req->name,
+            'slug'      => slug_formater($req->name),
+            'logo_id'   => $logo->id,
+            'image_id'  => $image->id,
+        ]);
 
+        $i = Game::where('image_id', $image->id)->first();
+        $image->game_id = $i->id;
+        $image->save();
+        $logo->game_id = $i->id;
+        $logo->save();
+
+        if($req->tag)
             foreach ($req->tag as $tag) {
                 Tag::create([
                     'user_id'   => Auth::id(),
@@ -63,9 +78,8 @@ class GameController extends Controller
                 ]);
             }
 
-            return redirect()->route('back.game')
-                ->with('success','Jeu ajouté !');
-        }
+        return redirect()->route('back.game')
+            ->with('success','Jeu ajouté !');
     }
 
     public function edit($slug) {
@@ -109,7 +123,7 @@ class GameController extends Controller
             'slug' => slug_formater($req->name)
         ]);
 
-        return redirect()->route('back.game')->with('success','Jeu édité !');
+        return redirect()->route('back.game')->with('success','Jeu "'.$req->name.'" édité !');
     }
 
     public function deleteStore(Request $req) {
@@ -124,16 +138,19 @@ class GameController extends Controller
                 return redirect()->back()->with('error', 'Ce jeu possède"'.count($servers).'" servers! Il n\'est pas possible de le supprimer...');
 
             $game = Game::find($req->id);
-            $image = Image::where('game_id', $game->id);
-            $tags = Tag::where('game_id', $game->id);
+
+            $getImages = Image::where('game_id', $game->id)->get();
+
+            foreach ($getImages as $i) {
+                File::delete('media/ws/'.$i->path);
+                $i->delete();
+            }
+
+            $tags = Tag::where('game_id', $game->id)->get();
+            foreach ($tags as $t)
+                $t->delete();
+
             $game->delete();
-
-            $getImages = Image::where('id', $game->image_id)->get();
-            foreach ($getImages as $i)
-                File::delete('media/ws'.$i->path);
-
-            $image->delete();
-            $tags->delete();
             return redirect()->back()->with('success', 'Le jeu "'.$game->name.'" à été supprimé !');
         }
     }

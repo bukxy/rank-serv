@@ -17,14 +17,12 @@ class Image extends Model
         'server_id',
     ];
 
-
     public function game() {
-        return $this->hasOne(Game::class);
+        return $this->belongsToMany(Game::class);
     }
     public function language() {
         return $this->belongsTo(Language::class);
     }
-
     public function server() {
         return $this->hasOne(Server::class);
     }

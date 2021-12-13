@@ -35,6 +35,7 @@
                         <tr>
                             <th class="col-1 text-center">#</th>
                             <th class="col-6 text-center">Name</th>
+                            <th class="col-2 text-center">logo</th>
                             <th class="col-2 text-center">Image</th>
                             <th class="col-1 text-center">Tags</th>
                             <th class="col-1 text-center">Servers</th>
@@ -46,12 +47,13 @@
                             <tr>
                                 <td class="text-center align-middle">{{ $game->id }}</td>
                                 <td class="text-center align-middle">{{ $game->name }}</td>
-                                <td class="text-center align-middle"><img width="50" height="auto" src="{{ asset('media/ws/'.$game->image->path) }}" alt="{{ $game->name }}"></td>
+                                <td class="text-center align-middle"><img width="50" height="auto" src="{{ asset('media/ws/'. $game->logo->path) }}" alt="{{ $game->name }}"></td>
+                                <td class="text-center align-middle"><img width="50" height="auto" src="{{ asset('media/ws/'. $game->image->path) }}" alt="{{ $game->name }}"></td>
                                 <td class="text-center align-middle">{{ count($game->tags) }}</td>
                                 <td class="text-center align-middle">{{ count($game->servers) }}</td>
                                 <td class="text-center align-middle">
                                     <a href="{{ route('back.editGame', ['slug' => $game->slug]) }}" class="btn btn-info btn-circle"><i class="far fa-edit"></i></a>
-                                    <button type="button" value="{{ $game->id }}" class="btn btn-danger delete-js"><i class="far fa-trash-alt"></i></button>
+                                    <button type="button" data-id="{{ $game->id }}" data-name="{{ $game->name }}" class="btn btn-danger delete-js"><i class="far fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -59,15 +61,46 @@
                     <tfoot>
                         <tr>
                             <th class="col-1 text-center">#</th>
-                            <th class="col-2 text-center" >Name</th>
-                            <th class="col-2 text-center" >Image</th>
-                            <th class="col-1 text-center" >Tags</th>
-                            <th class="col-1 text-center" >Servers</th>
+                            <th class="col-2 text-center">Name</th>
+                            <th class="col-2 text-center">logo</th>
+                            <th class="col-2 text-center">Image</th>
+                            <th class="col-1 text-center">Tags</th>
+                            <th class="col-1 text-center">Servers</th>
                             <th class="text-center">Settings</th>
                         </tr>
                     </tfoot>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+
+{{----------------------------
+MODAL CONFIRM DELETE
+----------------------------}}
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="{{route('back.deleteGame.store')}}">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="id">
+                <div class="modal-body">
+                    <div class="alert alert-warning" role="alert">
+                        Êtes vous sûr de bien vouloir supprimer le jeu "<span class="font-weight-bold"></span>"
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                    <button type="submit" class="btn btn-danger">Oui</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

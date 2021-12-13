@@ -18,6 +18,17 @@
         </div>
     </div>
     <div class="col-12 row mb-3">
+        @error('logo')
+            <div class="alert alert-danger col-12">{{ $message }}</div>
+        @enderror
+        <div class="col-2">
+            <label for="formFile" class="form-label">{{ __('Logo') }}</label>
+        </div>
+        <div class="col-8">
+            <input class="form-control @error('logo') is-invalid @enderror" type="file" name="logo" required>
+        </div>
+    </div>
+    <div class="col-12 row mb-3">
         @error('image')
             <div class="alert alert-danger col-12">{{ $message }}</div>
         @enderror
@@ -44,4 +55,7 @@
     @csrf
     <button class="btn btn-primary" type="submit" data-dismiss="modal">{{ __('Save') }}</button>
 </form>
+@endsection
+@section('scripts')
+    <script type="text/javascript" src="{{ asset('js/back/game.js') }}"></script>
 @endsection

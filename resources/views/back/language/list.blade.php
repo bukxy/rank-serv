@@ -29,7 +29,7 @@
                         <tr>
                             <th class="col-1 text-center">#</th>
                             <th class="col-6 text-center">Name</th>
-{{--                            <th class="col-2 text-center">Image</th>--}}
+                            <th class="col-2 text-center">Image</th>
                             <th class="col-1 text-center">Settings</th>
                         </tr>
                     </thead>
@@ -38,10 +38,10 @@
                             <tr>
                                 <td class="text-center align-middle">{{ $l->id }}</td>
                                 <td class="text-center align-middle">{{ $l->name }}</td>
-{{--                                <td class="text-center align-middle"><img width="50" height="auto" src="{{ asset('storage/siteImage/'.$l->image->path) }}" alt="{{ $l->name }}"></td>--}}
+                                <td class="text-center align-middle"><img width="50" height="auto" src="{{ asset('media/ws/'.$l->image->path) }}" alt="{{ $l->name }}"></td>
                                 <td class="text-center align-middle">
                                     <a href="#" class="btn btn-info btn-circle"><i class="far fa-edit"></i></a>
-                                    <a href="#" class="btn btn-danger btn-circle"><i class="far fa-trash-alt"></i></a>
+                                    <button type="button" data-id="{{ $l->id }}" data-name="{{ $l->name }}" class="btn btn-danger delete-js"><i class="far fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -50,7 +50,7 @@
                         <tr>
                             <th class="col-1 text-center">#</th>
                             <th class="col-2 text-center">Name</th>
-{{--                            <th class="col-2 text-center">Image</th>--}}
+                            <th class="col-2 text-center">Image</th>
                             <th class="text-center">Settings</th>
                         </tr>
                     </tfoot>
@@ -97,8 +97,38 @@
                     @csrf
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="refresh" data-dismiss="modal">Terminer les ajouts</button>
+                    <button type="button" class="btn btn-secondary" data-refresh="refresh" data-dismiss="modal">Terminer les ajouts</button>
                     <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{----------------------------
+MODAL CONFIRM DELETE
+----------------------------}}
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="{{route('back.deleteLanguage.store')}}">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="id">
+                <div class="modal-body">
+                    <div class="alert alert-warning" role="alert">
+                        Êtes vous sûr de bien vouloir supprimer la langue "<span class="font-weight-bold"></span>"
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                    <button type="submit" class="btn btn-danger">Oui</button>
                 </div>
             </form>
         </div>

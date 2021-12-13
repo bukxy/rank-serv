@@ -10021,6 +10021,27 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.game-card {
+  width: 18em;
+  list-style: none;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  position: relative;
+}
+.game-card figure {
+  margin: 0;
+}
+.game-card figure img {
+  width: 100%;
+}
+.game-card figcaption {
+  position: absolute;
+  bottom: 0;
+  padding: 15px;
+  background-color: rgba(158, 158, 195, 0.6);
+  width: 100%;
+}
+
 .servers {
   display: flex;
   flex-direction: row;

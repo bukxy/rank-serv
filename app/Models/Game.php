@@ -14,6 +14,7 @@ class Game extends Model
         'user_id',
         'name',
         'slug',
+        'logo_id',
         'image_id',
     ];
 
@@ -22,7 +23,10 @@ class Game extends Model
     }
 
     public function image() {
-        return $this->hasOne(Image::class);
+        return $this->hasOne(Image::class,'id','image_id');
+    }
+    public function logo() {
+        return $this->hasOne(Image::class, 'id','logo_id');
     }
 
     public function tags() {

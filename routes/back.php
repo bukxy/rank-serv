@@ -56,6 +56,7 @@ Route::middleware(['admin'])->group(function() {
         Route::prefix('/language')->group(function() {
             Route::get('/', [LanguageController::class, 'list'])->name('back.language');
             Route::post('/', [LanguageController::class, 'addStore']); // ajax
+            Route::delete('/delete', [LanguageController::class, 'deleteStore'])->name('back.deleteLanguage.store');
         });
 
     });

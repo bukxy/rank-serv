@@ -1,17 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-lg">
-    <div class="row justify-content-center">
+<section class="container-lg">
+    <ul class="row justify-content-center">
         @foreach($games as $g)
-            <a href="{{ route('listServersByGame', ['game' => $g->slug]) }}"><div class="card" style="width: 18rem;">
-                <img src="{{ asset('storage/siteImage/' . $g->image->path) }}" class="card-img-top" alt="{{ $g->name }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $g->name }}</h5>
-                </div>
-            </div>
-            </a>
+            <li class="game-card">
+                <figure>
+                    <a href="{{ route('listServersByGame', ['game' => $g->slug]) }}">
+                        <img src="{{ asset('media/ws/' . $g->image->path) }}" alt="{{ $g->name }}">
+                    </a>
+                    <figcaption>
+                        <h5 class="game-card-bottom"><a href="{{ route('listServersByGame', ['game' => $g->slug]) }}" class="stretched-link">{{ $g->name }}</a></h5>
+                        <span>{{ count($g->servers) }} serveurs</span>
+                        <span class="badge badge-light">{{ count($g->tags) }} tags</span>
+                    </figcaption>
+                </figure>
+            </li>
         @endforeach
-    </div>
-</div>
+    </ul>
+</section>
 @endsection
