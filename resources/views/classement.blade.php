@@ -25,12 +25,12 @@
                     </div>
                 </div>
                 <div class="logo">
-                    <img src="{{ asset('storage/siteImage/' . $s->logo->path )}}">
+                    <img src="{{ Storage::disk('s3')->url('media/logo/'.$s->logo->path) }}">
                 </div>
                 <div class="col-12 row border-bottom">
                     <div class="col-3 row pt-2 pb-2 pr-2">
                         <div class="col-12 banner">
-                            <img src="{{ asset('storage/siteImage/' . $s->banner->path )}}">
+                            <img src="{{ Storage::disk('s3')->url('media/banner/'.$s->banner->path) }}">
                         </div>
                     </div>
                     <div class="col-9 p-2 description">
@@ -67,9 +67,9 @@
                     </div>
                     <div class="col-12 langs">
                         <span>Languages :</span>
-                        @foreach($s->languages as $lang)
-                            <img src="{{asset('storage/siteImage/lang/'.$lang->image->path)}}">
-                        @endforeach
+{{--                        @foreach($s->languages as $lang)--}}
+{{--                            <img src="{{asset('storage/siteImage/lang/'.$lang->image->path)}}">--}}
+{{--                        @endforeach--}}
                     </div>
                 </div>
             </div>

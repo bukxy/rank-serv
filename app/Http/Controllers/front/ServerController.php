@@ -9,63 +9,66 @@ use App\Models\Language;
 use App\Models\Server;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Request;
 
 class ServerController extends Controller
 {
     public function new() {
         return view('addserver', [
-                'games'     => Game::all(),
-                'languages'  => Language::all()
-            ]);
+            'games'     => Game::all(),
+            'languages'  => Language::all()
+        ]);
     }
 
     public function newStore(Request $req) {
 
         $req->validate([
-            'game' => ['required'],
+            'game' => 'required',
             'banner' => 'nullable|mimes:png,jpg,jpeg,gif|dimensions:max_width=200,max_height=200|max:2048',
             'logo' => 'nullable|mimes:png,jpg,jpeg,gif|dimensions:max_width=64,max_height=64|max:2048',
-            'name' => ['required'],
-            'ip' => ['required'],
-            'port' => ['required','not_regex:/[^0-9]/'],
-            'host' => ['required'],
-            'website' => ['nullable'],
+            'name' => 'required',
+            'ip' => 'required',
+            'port' => ['nullable','not_regex:/[^0-9]/'],
+            'host' => 'required',
+            'website' => 'nullable',
             'slots' => ['required','not_regex:/[^0-9]/'],
-            'access' => ['required'],
-            'desc' => ['required'],
-            'lang' => ['required'],
-            'tag' => ['required'],
-            'discord' => ['nullable'],
+            'access' => 'required',
+            'desc' => 'required',
+            'lang' => 'required',
+            'tag' => 'required',
+            'discord' => 'nullable',
             'tsip' => ['nullable','regex:/[^.0-9]/' ],
             'tsport' => ['nullable','regex:/[^.0-9]/'],
             'mumbleip' => ['nullable','regex:/[^.0-9]/'],
             'mumbleport' => ['nullable','regex:/[^.0-9]/'],
-            'twitch' => ['nullable'],
-            'youtube' => ['nullable'],
+            'twitch' => 'nullable',
+            'youtube' => 'nullable',
         ]);
 
         if ($req->port) $ip = $req->ip.':'.$req->port; else $ip = $req->ip;
         if ($req->tsport) $ts = $req->tsip.':'.$req->tsport; else $ts = $req->tsip;
         if ($req->mumbleport) $mumble = $req->mumbleip.':'.$req->mumbleport; else $mumble = $req->mumbleip;
 
-        $req->file('banner')->store('public/siteImage');
-        $req->file('logo')->store('public/siteImage');
-        $path1 = $req->file('banner')->hashName();
-        $path2 = $req->file('logo')->hashName();
-        $img1 = new Image([
+        $banner = $req->file('banner');
+        $path1 = Str::orderedUuid().'.'.$banner->extension();
+        $banner->storeAs('media/banner/', $path1,'s3');
+
+        $logo = $req->file('logo');
+        $path2 = Str::orderedUuid().'.'.$logo->extension();
+        $logo->storeAs('media/logo/', $path2,'s3');
+
+        $img1 = Image::create([
             'user_id'   => Auth::id(),
             'path'      => $path1,
         ]);
-        $img1->save();
-        $banner= Image::where('path', $path1)->first();
-
-        $img2 = new Image([
+//        $banner= Image::where('path', $path1)->first();
+        $img2 = Image::create([
             'user_id'   => Auth::id(),
             'path'      => $path2,
         ]);
-        $img2->save();
-        $logo = Image::where('path', $path2)->first();
+//        $logo = Image::where('path', $path2)->first();
 
         $tags = [];
         foreach ($req->tag as $t) {
@@ -79,13 +82,13 @@ class ServerController extends Controller
                 $langs[] = $lang->id;
         }
 
-        Server::create([
+        $server = Server::create([
             'user_id' => Auth::id(),
             'game_id' => $req->game,
-            'banner_id' => $banner->id,
-            'logo_id' => $logo->id,
+            'banner_id' => $img1->id,
+            'logo_id' => $img2->id,
             'name' => $req->name,
-            'slug' => slug_formater($req->name),
+            'slug' => Str::of($req->name)->slug('-'),
             'ip' => $ip,
             'host' => $req->host,
             'website' => $req->website,
@@ -98,12 +101,6 @@ class ServerController extends Controller
             'twitch' => $req->twitch,
             'youtube' => $req->youtube,
         ]);
-
-        $server = Server::where('banner_id', $banner->id)->first();
-        $img1->server_id = $server->id;
-        $img2->server_id = $server->id;
-        $img1->save();
-        $img2->save();
         $server->tags()->syncWithoutDetaching($tags);
         $server->languages()->syncWithoutDetaching($langs);
 

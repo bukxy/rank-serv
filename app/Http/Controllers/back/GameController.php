@@ -10,6 +10,7 @@ use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Request;
 
 class GameController extends Controller
@@ -27,16 +28,15 @@ class GameController extends Controller
     public function addStore(Request $req) {
 
         $req->validate([
-            'name' => 'required|max:255',
+            'name' => 'required|unique:games|max:255',
             'logo' => 'required|mimes:png,jpg,jpeg|max:2048',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
             'tag'  =>  'nullable'
         ]);
-
         /*
          * LOGO
          */
-        $path1 = $req->name.'-logo.'.$req->file('image')->extension();
+        $path1 = Str::of($req->name.'-logo')->slug('-').'.'.$req->file('logo')->extension();
         $req->file('logo')->storeAs('public/ws', $path1);
         Image::create([
             'user_id'   => Auth::id(),
@@ -47,7 +47,7 @@ class GameController extends Controller
         /*
          * IMAGE
          */
-        $path2 = $req->name.'.'.$req->file('image')->extension();
+        $path2 = Str::of($req->name)->slug('-').'.'.$req->file('image')->extension();
         $req->file('image')->storeAs('public/ws', $path2);
         Image::create([
             'user_id'   => Auth::id(),
@@ -55,26 +55,26 @@ class GameController extends Controller
         ]);
         $image = Image::where('path', $path2)->first();
 
-        Game::create([
+        $game = Game::create([
             'user_id'   => Auth::id(),
             'name'      => $req->name,
-            'slug'      => slug_formater($req->name),
+            'slug'      => Str::of($req->name)->slug('-'),
             'logo_id'   => $logo->id,
             'image_id'  => $image->id,
         ]);
 
-        $i = Game::where('image_id', $image->id)->first();
-        $image->game_id = $i->id;
-        $image->save();
-        $logo->game_id = $i->id;
-        $logo->save();
+//        $i = Game::where('image_id', $image->id)->first();
+//        $image->game_id = $i->id;
+//        $image->save();
+//        $logo->game_id = $i->id;
+//        $logo->save();
 
         if($req->tag)
             foreach ($req->tag as $tag) {
                 Tag::create([
                     'user_id'   => Auth::id(),
                     'name'      => $tag,
-                    'game_id'   => $i->id,
+                    'game_id'   => $game->id,
                 ]);
             }
 
@@ -120,7 +120,7 @@ class GameController extends Controller
         Game::where('slug', $slug)->update([
             'user_id' => Auth::id(),
             'name' => $req->name,
-            'slug' => slug_formater($req->name)
+            'slug' => Str::of($req->name)->slug('-')
         ]);
 
         return redirect()->route('back.game')->with('success','Jeu "'.$req->name.'" édité !');
@@ -139,12 +139,12 @@ class GameController extends Controller
 
             $game = Game::find($req->id);
 
-            $getImages = Image::where('game_id', $game->id)->get();
-
-            foreach ($getImages as $i) {
-                File::delete('media/ws/'.$i->path);
-                $i->delete();
-            }
+            $logo = Image::find($game->logo_id);
+            File::delete('media/ws/'.$logo->path);
+            $logo->delete();
+            $image = Image::find($game->image_id);
+            File::delete('media/ws/'.$image->path);
+            $image->delete();
 
             $tags = Tag::where('game_id', $game->id)->get();
             foreach ($tags as $t)

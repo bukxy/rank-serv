@@ -24,6 +24,6 @@ class Image extends Model
         return $this->belongsTo(Language::class);
     }
     public function server() {
-        return $this->hasOne(Server::class);
+        return $this->belongsToMany(Server::class);
     }
 }

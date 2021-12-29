@@ -16,9 +16,9 @@ class Images extends Migration
         Schema::create('images', function(Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('game_id')->nullable();
-            $table->foreignId('server_id')->nullable();
-            $table->foreignId('language_id')->nullable();;
+//            $table->foreignId('game_id')->nullable();
+//            $table->foreignId('server_id')->nullable();
+//            $table->foreignId('language_id')->nullable();;
             $table->string('path')->unique();
         });
     }

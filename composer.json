@@ -12,6 +12,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
+        "league/flysystem-aws-s3-v3": "~1.0",
+        "league/flysystem-cached-adapter": "~1.0",
         "tinymce/tinymce": "^5.10",
         "twbs/bootstrap": "4.6.1"
     },
