@@ -12,9 +12,8 @@ class Image extends Model
 
     protected $fillable = [
         'user_id',
+        'name',
         'path',
-        'game_id',
-        'server_id',
     ];
 
     public function game() {

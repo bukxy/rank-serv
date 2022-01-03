@@ -77,7 +77,6 @@ $(document).ready(function($) {
                         error.addClass('d-none');
                     }
                     inputReadOnly.empty();
-                    inputReadOnly.empty();
                     inputReadOnly.val(res.success.name);
                     $("#editGameTag-ajax").on('submit', function(e){
                         e.preventDefault();

@@ -37,8 +37,8 @@
                         <p>{{ $s->description }}</p>
                     </div>
                 </div>
-                <div class="col-4 row slots-ip">
-                    <div class="slots">
+                <div class="col-3 row slots-ip">
+                    <div class="slots m-auto">
                         <span>0/{{ $s->slots }} players</span>
                     </div>
                     <div class="access">
@@ -52,24 +52,36 @@
                         <span>IP : {{ $s->ip }}</span>
                     </div>
                 </div>
-                <div class="col-8 row tags-langs">
-                    <div class="col-12 tags">
-                        @foreach($s->tags as $tag)
-                            @if($loop->index <= 2)
-                                <span class="badge badge-primary">{{ $tag->name }}</span>
-                            @else
-                                 @if($loop->count >= 2)
-                                <span class="badge badge-warning">+{{ $loop->count - ($loop->index) }}</span>
+                <div class="col-9 row tags-langs">
+                    <div class="col-12 row">
+                        <div class="col-5 tags">
+                            @forelse($s->tags as $tag)
+                                @if($loop->index <= 3)
+                                    <span class="badge badge-primary">{{ $tag->name }}</span>
+                                @else
+                                     @if($loop->count >= 4)
+                                    <span class="badge badge-warning">+{{ $loop->count - ($loop->index) }}</span>
+                                    @endif
+                                    @break
                                 @endif
-                                @break
-                            @endif
-                        @endforeach
+                                @empty
+                            @endforelse
+                        </div>
+                        <div class="col-5 langs">
+                            <span>Langs :</span>
+                                @forelse($s->languages as $lang)
+                                    <img src="{{asset('media/'.$lang->image->path)}}">
+                                @empty
+                                @endforelse
+                        </div>
                     </div>
-                    <div class="col-12 langs">
-                        <span>Languages :</span>
-{{--                        @foreach($s->languages as $lang)--}}
-{{--                            <img src="{{asset('storage/siteImage/lang/'.$lang->image->path)}}">--}}
-{{--                        @endforeach--}}
+                    <div class="col-12 row">
+                        <div class="col-6 text-center">
+                            <button class="btn btn-outline-success">{{ __('Voir le serveur') }}</button>
+                        </div>
+                        <div class="col-6 text-center">
+                            <button class="btn btn-outline-info">{{ __('Voter') }}</button>
+                        </div>
                     </div>
                 </div>
             </div>

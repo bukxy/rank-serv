@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Request;
 
 class LanguageController extends Controller
@@ -31,33 +32,107 @@ class LanguageController extends Controller
                'errors' =>$validator->messages()
             ]);
         }else {
-            $req->file('file')->store('public/ws');
+            $imageName = Str::of($req->name)->slug('-').'.'.$req->file('file')->extension();
+            $req->file('file')->storeAs('public/langs', $imageName);
+            $path = 'langs/'.$imageName;
 
-            $path = $req->file('file')->hashName();
-            Image::create([
+            $image = Image::create([
                 'user_id'   => Auth::id(),
                 'name'  => $req->name,
-                'alt'   =>  $req->name,
                 'path'  => $path
             ]);
-            $image = Image::where('path', $path)->first();
 
-            Language::create([
+            $lang = Language::create([
                 'user_id'   => Auth::id(),
                 'name'      => $req->name,
                 'image_id'  => $image->id
             ]);
 
-            $l = Language::where('name', $req->name)->first();
-            $l->image_id = $image->id;
-            $l->save();
-
-            $image->language_id = $l->id;
-            $image->save();
+            $lang->image_id = $image->id;
+            $lang->save();
 
             return response()->json([
                 'status' =>200,
-                'success' => "La langue ". $req->name ." à bien été ajouté !"
+                'success' => "Le language ". $req->name ." à bien été ajouté !".$imageName
+            ]);
+        }
+    }
+
+    /*
+     * AJAX LANG EDIT -> back/language.js
+     */
+    public function langGet(Request $req) {
+        $l = Language::where('id', $req->id)->first();
+        if($l != null) {
+            return response()->json([
+                'status' => 200,
+                'success' => $l
+            ]);
+        } else {
+            return response()->json([
+                'status' => 400,
+                'error' => 'Lang "ID" doesn\'t exist'
+            ]);
+        }
+    }
+    /*
+     * AJAX LANG EDIT POST UPDATE
+     */
+    public function langEditStore(Request $req) {
+        $validator = Validator::make($req->all(),[
+            'name' => 'unique:languages|max:50',
+            'file' => 'image|mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status' =>400,
+                'errors' =>$validator->messages()
+            ]);
+        }else {
+            if($req->name){
+                $l = Language::find($req->id);
+                Language::where('id', $req->id)->update([
+                    'user_id'   => Auth::id(),
+                    'name'  => $req->name
+                ]);
+                if(!$req->file('file'))
+                    return response()->json([
+                        'status' =>200,
+                        'success' => "Le language \"".$l->name."\" à été renommé en \"".$req->name."\" !"
+                    ]);
+            }
+            if($req->file('file')){
+                $l = Language::find($req->id);
+                $i = Image::find($l->image_id);
+                File::delete('media/'.$i->path);
+
+                if($req->name){
+                    $image = Str::of($req->name)->slug('-').'.'.$req->file('file')->extension();
+                    $req->file('file')->storeAs('public/langs', $image);
+                    Image::where('id', $l->image_id)->update([
+                        'user_id'   => Auth::id(),
+                        'path'  => 'langs/'.$image
+                    ]);
+                    return response()->json([
+                        'status' =>200,
+                        'success' => "Le language \"".$l->name."\" à été renommé en \"".$req->name."\" !"
+                    ]);
+                } else {
+                    $image = Str::of($l->name)->slug('-').'.'.$req->file('file')->extension();
+                    $req->file('file')->storeAs('public/langs', $image);
+                    Image::where('id', $l->image_id)->update([
+                        'path'  => 'langs/'.$image
+                    ]);
+                    return response()->json([
+                        'status' =>200,
+                        'success' => "Le language \"".$l->name."\" à été modifier !"
+                    ]);
+                }
+            }
+            return response()->json([
+                'status' => 200,
+                'success' => "Le language n'a pas été changé !"
             ]);
         }
     }
@@ -75,7 +150,7 @@ class LanguageController extends Controller
 
             $lang = Language::find($req->id);
             $image = Image::find($lang->image_id);
-            File::delete('media/ws/'.$image->path);
+            File::delete('media/'.$image->path);
             $lang->delete();
             $image->delete();
             return redirect()->back()->with('success', 'Le jeu "'.$lang->name.'" à été supprimé !');

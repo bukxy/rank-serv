@@ -67,13 +67,16 @@
         margin: 0.25em auto;
         padding: 0.25em;
         & span {
-            line-height: 2em;
+            line-height: 1.5em;
         }
     }
     & .slots-ip {
         padding: 0 0.25em;
         border-right: solid 1px $border-color;
         & .slots {
+            height: 30px;
+            padding: 0 0.5em;
+            line-height: 2em;
             & svg {
                 margin: 0 0 0 1.5em;
             }
@@ -91,5 +94,12 @@
     }
     & .tags-langs {
         padding: 0 0.25em;
+        & .tags,.langs{
+            height: 36px;
+            padding: 0.25em 0.35em;
+        }
+        & .langs img{
+            width: 1.5em;
+        }
     }
 }

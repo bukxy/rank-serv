@@ -10113,11 +10113,16 @@ h3 {
   padding: 0.25em;
 }
 .servers .slots span, .servers .access span, .servers .ip span, .servers .tags span, .servers .langs span {
-  line-height: 2em;
+  line-height: 1.5em;
 }
 .servers .slots-ip {
   padding: 0 0.25em;
   border-right: solid 1px rgba(0, 0, 0, 0.25);
+}
+.servers .slots-ip .slots {
+  height: 30px;
+  padding: 0 0.5em;
+  line-height: 2em;
 }
 .servers .slots-ip .slots svg {
   margin: 0 0 0 1.5em;
@@ -10134,6 +10139,13 @@ h3 {
 }
 .servers .tags-langs {
   padding: 0 0.25em;
+}
+.servers .tags-langs .tags, .servers .tags-langs .langs {
+  height: 36px;
+  padding: 0.25em 0.35em;
+}
+.servers .tags-langs .langs img {
+  width: 1.5em;
 }
 
 body {
