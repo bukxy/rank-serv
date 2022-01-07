@@ -32,7 +32,7 @@ class Server extends Model
     ];
 
     public function game() {
-        return $this->hasMany(Game::class);
+        return $this->hasOne(Game::class, 'id', 'game_id');
     }
 
     public function tags() {

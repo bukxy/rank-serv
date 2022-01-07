@@ -80,7 +80,7 @@
                             <button class="btn btn-outline-success">{{ __('Voir le serveur') }}</button>
                         </div>
                         <div class="col-6 text-center">
-                            <button class="btn btn-outline-info">{{ __('Voter') }}</button>
+                            <a href="{{ route('serverVote', ['game' => $s->game->slug,'server' => $s->slug]) }}"><button class="btn btn-outline-info">{{ __('Voter') }}</button></a>
                         </div>
                     </div>
                 </div>

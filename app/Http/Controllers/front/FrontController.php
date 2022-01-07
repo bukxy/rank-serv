@@ -13,12 +13,4 @@ class FrontController extends Controller {
             'games' => Game::all()
         ]);
     }
-
-    public function listServersByGame($game)
-    {
-        $g = Game::where('slug', '=', $game)->first();
-        if(!$g) abort(404);
-        $s = Server::where('game_id', '=', $g->id)->orderBy('vote', 'desc')->paginate(20);
-        return view('classement', ['servers' => $s]);
-    }
 }

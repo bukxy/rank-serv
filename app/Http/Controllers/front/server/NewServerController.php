@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\front;
+namespace App\Http\Controllers\front\server;
 
 use App\Http\Controllers\Controller;
 use App\Models\Game;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Request;
 
-class ServerController extends Controller
+class NewServerController extends Controller
 {
     public function new() {
         return view('addserver', [
