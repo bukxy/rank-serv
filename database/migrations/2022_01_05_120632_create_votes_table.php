@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +16,9 @@ class CreateVotesTable extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->string('ip');
-            $table->timestamp('expiration');
+            $table->foreignId('server_id');
+            $table->string('pseudo')->nullable();
+            $table->string('date')->default(Carbon::now()->tz('Europe/Paris')->toDateTimeString());
         });
     }
 

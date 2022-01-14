@@ -3,7 +3,7 @@ $(document).ready(function($) {
     /*
         Add Lang
     */
-    $(document).on('submit', '#addLang-ajax' ,function(e){
+    $('#addLang-ajax').on('submit', function(e) {
         e.preventDefault();
         let formData = new FormData($('#addLang-ajax')[0]);
         $.ajaxSetup({

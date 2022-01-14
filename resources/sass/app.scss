@@ -7,3 +7,9 @@
 
 // Custom style
 @import 'front/style';
+
+// Flags
+@import '~flag-icons/sass/flag-icons';
+.fib {
+    border-radius: 0.25em;
+}

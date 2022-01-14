@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Vote extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     protected $fillable = [
-        'ip',
-        'expiration_time'
+        'server_id','pseudo'
     ];
 }

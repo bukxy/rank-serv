@@ -26,8 +26,8 @@ class AddLogoGame extends Migration
      */
     public function down()
     {
-        Schema::table('games', function($table) {
-            $table->dropCollumn('logo_id');
+        Schema::table('games', function(Blueprint $table) {
+            $table->dropColumn('logo_id');
         });
     }
 }

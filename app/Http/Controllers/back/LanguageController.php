@@ -38,7 +38,6 @@ class LanguageController extends Controller
 
             $image = Image::create([
                 'user_id'   => Auth::id(),
-                'name'  => $req->name,
                 'path'  => $path
             ]);
 
@@ -53,7 +52,7 @@ class LanguageController extends Controller
 
             return response()->json([
                 'status' =>200,
-                'success' => "Le language ". $req->name ." à bien été ajouté !".$imageName
+                'success' => "Le language ". $req->name ." à bien été ajouté !"
             ]);
         }
     }

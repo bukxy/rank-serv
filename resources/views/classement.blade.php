@@ -56,10 +56,10 @@
                     <div class="col-12 row">
                         <div class="col-5 tags">
                             @forelse($s->tags as $tag)
-                                @if($loop->index <= 3)
+                                @if($loop->index <= 5)
                                     <span class="badge badge-primary">{{ $tag->name }}</span>
                                 @else
-                                     @if($loop->count >= 4)
+                                     @if($loop->count >= 6)
                                     <span class="badge badge-warning">+{{ $loop->count - ($loop->index) }}</span>
                                     @endif
                                     @break
@@ -69,10 +69,17 @@
                         </div>
                         <div class="col-5 langs">
                             <span>Langs :</span>
-                                @forelse($s->languages as $lang)
+                            @forelse($s->languages as $lang)
+                                @if($loop->index <= 5)
                                     <img src="{{asset('media/'.$lang->image->path)}}">
-                                @empty
-                                @endforelse
+                                @else
+                                @if($loop->count >= 6)
+                                    <span class="badge badge-warning">+{{ $loop->count - ($loop->index) }}</span>
+                                @endif
+                                @break
+                            @endif
+                            @empty
+                            @endforelse
                         </div>
                     </div>
                     <div class="col-12 row">

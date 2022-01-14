@@ -305,3 +305,7 @@
     </div>
 </div>
 @endsection
+
+@section('scripts')
+    <script src="{{ asset('js/front/serverLangsList.js') }}"></script>
+@endsection

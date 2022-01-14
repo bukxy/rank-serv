@@ -9,7 +9,6 @@ use App\Models\Language;
 use App\Models\Server;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -63,12 +62,10 @@ class NewServerController extends Controller
             'user_id'   => Auth::id(),
             'path'      => $path1,
         ]);
-//        $banner= Image::where('path', $path1)->first();
         $img2 = Image::create([
             'user_id'   => Auth::id(),
             'path'      => $path2,
         ]);
-//        $logo = Image::where('path', $path2)->first();
 
         $tags = [];
         foreach ($req->tag as $t) {
@@ -77,7 +74,7 @@ class NewServerController extends Controller
         }
         $langs = [];
         foreach ($req->lang as $l) {
-            $lang = Language::first('id', $l);
+            $lang = Language::find($l);
             if($lang)
                 $langs[] = $lang->id;
         }
