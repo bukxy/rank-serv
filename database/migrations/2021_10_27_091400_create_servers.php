@@ -24,6 +24,8 @@ class CreateServers extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('ip');
+            $table->unsignedBigInteger('host_id');
+            $table->foreign('host_id')->references('id')->on('images');
             $table->string('website')->nullable();
             $table->string('slots');
             $table->string('access');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVotesProtectTable extends Migration
+class CreateVoteProtectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVotesProtectTable extends Migration
      */
     public function up()
     {
-        Schema::create('votes_protect', function (Blueprint $table) {
+        Schema::create('vote_protects', function (Blueprint $table) {
             $table->id();
             $table->string('ip');
             $table->string('expiration');
@@ -27,6 +27,6 @@ class CreateVotesProtectTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('votes_protect');
+        Schema::dropIfExists('vote_protects');
     }
 }

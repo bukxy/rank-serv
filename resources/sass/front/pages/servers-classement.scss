@@ -44,13 +44,19 @@
         border-left: solid 1px $border-color;
         border-right: solid 1px $border-color;
     }
-    & .logo {
+    & .logo , .host {
         position: absolute;
-        top: 64px;
-        left: -32px;
         max-width: 64px;
         max-height: 64px;
         z-index: 1;
+    }
+    & .logo {
+        top: 20px;
+        left: -32px;
+    }
+    & .host {
+        top: 8px;
+        left: -23px;
     }
     & .banner {
         padding: 0;

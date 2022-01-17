@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Vote;
+use App\Models\VoteProtect;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -13,7 +13,7 @@ class voteDelete extends Command
      *
      * @var string
      */
-    protected $signature = 'voteDelete';
+    protected $signature = 'vote:delete';
 
     /**
      * The console command description.
@@ -39,7 +39,7 @@ class voteDelete extends Command
      */
     public function handle()
     {
-        Vote::where('expiration', '<=', Carbon::now()->tz('Europe/Paris')->toDateTimeString())->each(function ($i) {
+        VoteProtect::where('expiration', '<=', Carbon::now()->tz('Europe/Paris')->toDateTimeString())->each(function ($i) {
             $i->delete();
         });
     }

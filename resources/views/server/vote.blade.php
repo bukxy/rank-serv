@@ -5,16 +5,16 @@
 @endsection
 
 @section('content')
-    @include('flash-message')
     <section class="container-lg">
+        @include('flash-message')
         @if ($message = Session::get('expiration_date'))
             <div class="alert alert-warning alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>Next vote at {{ $message }}</strong>
+                <strong>Next vote at {{ $message }} (UTC+1)</strong>
             </div>
         @endif
 
-        <form method="post" action="{{ route('serverVoteStore', ['game' => $server->game->slug, 'server' => $server->slug]) }}" id="voteForm">
+        <form method="post" action="{{ route('server.voteStore', ['game' => $server->game->slug, 'server' => $server->slug]) }}" id="voteForm">
             <div class="form-group">
                 <label for="exampleInputEmail1">Pseudo</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="mypseudo" name="pseudo">

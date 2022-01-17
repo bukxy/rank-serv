@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ServerController extends Controller
 {
-    public function listServersByGame($game)
+    public function list($game)
     {
         $g = Game::where('slug', '=', $game)->first();
         if(!$g) abort(404);

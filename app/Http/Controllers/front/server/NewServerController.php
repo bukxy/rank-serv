@@ -46,37 +46,66 @@ class NewServerController extends Controller
             'youtube' => 'nullable',
         ]);
 
+        // ---- verification if exist in db
+        if(!Game::find($req->game))
+            abort(404);
+
+        if ($req->tag) {
+            foreach ($req->tag as $t) {
+                if (!Tag::find($t))
+                    abort(404);
+            }
+        }
+
+        if ($req->lang) {
+            foreach ($req->lang as $l) {
+                if (!Language::find($l))
+                    abort(404);
+            }
+        }
+        // ---- end of verification if exist in db
+
         if ($req->port) $ip = $req->ip.':'.$req->port; else $ip = $req->ip;
         if ($req->tsport) $ts = $req->tsip.':'.$req->tsport; else $ts = $req->tsip;
         if ($req->mumbleport) $mumble = $req->mumbleip.':'.$req->mumbleport; else $mumble = $req->mumbleip;
 
-        $banner = $req->file('banner');
-        $path1 = Str::orderedUuid().'.'.$banner->extension();
-        $banner->storeAs('media/banner/', $path1,'s3');
+        if ($req->banner) {
+            $banner = $req->file('banner');
+            $path1 = Str::orderedUuid().'.'.$banner->extension();
+            $banner->storeAs('media/banner/', $path1,'s3');
 
-        $logo = $req->file('logo');
-        $path2 = Str::orderedUuid().'.'.$logo->extension();
-        $logo->storeAs('media/logo/', $path2,'s3');
-
-        $img1 = Image::create([
-            'user_id'   => Auth::id(),
-            'path'      => $path1,
-        ]);
-        $img2 = Image::create([
-            'user_id'   => Auth::id(),
-            'path'      => $path2,
-        ]);
-
-        $tags = [];
-        foreach ($req->tag as $t) {
-            $tag = Tag::find($t);
-            $tags[] = $tag->id;
+            $img1 = Image::create([
+                'user_id'   => Auth::id(),
+                'path'      => $path1,
+            ]);
         }
-        $langs = [];
-        foreach ($req->lang as $l) {
-            $lang = Language::find($l);
-            if($lang)
-                $langs[] = $lang->id;
+
+        if ($req->logo) {
+            $logo = $req->file('logo');
+            $path2 = Str::orderedUuid() . '.' . $logo->extension();
+            $logo->storeAs('media/logo/', $path2, 's3');
+
+            $img2 = Image::create([
+                'user_id'   => Auth::id(),
+                'path'      => $path2,
+            ]);
+        }
+
+        if ($req->tag) {
+            $tags = [];
+            foreach ($req->tag as $t) {
+                $tag = Tag::find($t);
+                $tags[] = $tag->id;
+            }
+        }
+
+        if ($req->lang) {
+            $langs = [];
+            foreach ($req->lang as $l) {
+                $lang = Language::find($l);
+                if ($lang)
+                    $langs[] = $lang->id;
+            }
         }
 
         $server = Server::create([
@@ -87,7 +116,7 @@ class NewServerController extends Controller
             'name' => $req->name,
             'slug' => Str::of($req->name)->slug('-'),
             'ip' => $ip,
-            'host' => $req->host,
+            'host_id' => $req->host,
             'website' => $req->website,
             'slots' => $req->slots,
             'access' => $req->access,
@@ -98,10 +127,13 @@ class NewServerController extends Controller
             'twitch' => $req->twitch,
             'youtube' => $req->youtube,
         ]);
-        $server->tags()->syncWithoutDetaching($tags);
-        $server->languages()->syncWithoutDetaching($langs);
 
-        return redirect()->route('my-account');
+        if ($req->tag)
+            $server->tags()->syncWithoutDetaching($tags);
+        if ($req->lang)
+            $server->languages()->syncWithoutDetaching($langs);
+
+        return redirect()->route('serverInfo', ["game" => $req->game]);
     }
 
     public function getGameTags($id) {

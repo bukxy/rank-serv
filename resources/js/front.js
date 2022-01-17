@@ -43,4 +43,10 @@ $(document).ready(function($) {
     });
     listHost.val(null).trigger('change');
 
+    let listLang = $('.js-add-server-lang');
+    listLang.select2({
+        placeholder: 'Select Languages',
+    });
+    listLang.val(null).trigger('change');
+
 });

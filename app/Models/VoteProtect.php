@@ -12,6 +12,7 @@ class VoteProtect extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'ip'
+        'ip',
+        'expiration'
     ];
 }

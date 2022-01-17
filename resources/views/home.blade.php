@@ -6,11 +6,11 @@
         @foreach($games as $g)
             <li class="game-card">
                 <figure>
-                    <a href="{{ route('listServersByGame', ['game' => $g->slug]) }}">
+                    <a href="{{ route('game.server', ['game' => $g->slug]) }}">
                         <img src="{{ asset('media/ws/' . $g->image->path) }}" alt="{{ $g->name }}">
                     </a>
                     <figcaption>
-                        <h5 class="game-card-bottom"><a href="{{ route('listServersByGame', ['game' => $g->slug]) }}" class="stretched-link">{{ $g->name }}</a></h5>
+                        <h5 class="game-card-bottom"><a href="{{ route('game.server', ['game' => $g->slug]) }}" class="stretched-link">{{ $g->name }}</a></h5>
                         <span>{{ count($g->servers) }} serveurs</span>
                         <span class="badge badge-light">{{ count($g->tags) }} tags</span>
                     </figcaption>

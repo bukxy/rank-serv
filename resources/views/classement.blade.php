@@ -24,10 +24,10 @@
                         Avis : <i class="far fa-comment"></i> (nb avis)
                     </div>
                 </div>
-                <div class="logo">
-                    <img src="{{ Storage::disk('s3')->url('media/logo/'.$s->logo->path) }}">
-                </div>
                 <div class="col-12 row border-bottom">
+                    <div class="logo">
+                        <img src="{{ Storage::disk('s3')->url('media/logo/'.$s->logo->path) }}">
+                    </div>
                     <div class="col-3 row pt-2 pb-2 pr-2">
                         <div class="col-12 banner">
                             <img src="{{ Storage::disk('s3')->url('media/banner/'.$s->banner->path) }}">
@@ -38,6 +38,9 @@
                     </div>
                 </div>
                 <div class="col-3 row slots-ip">
+                    <div class="host">
+                        <img src="{{ asset('media/'.$s->host->path) }}">
+                    </div>
                     <div class="slots m-auto">
                         <span>0/{{ $s->slots }} players</span>
                     </div>
@@ -87,7 +90,7 @@
                             <button class="btn btn-outline-success">{{ __('Voir le serveur') }}</button>
                         </div>
                         <div class="col-6 text-center">
-                            <a href="{{ route('serverVote', ['game' => $s->game->slug,'server' => $s->slug]) }}"><button class="btn btn-outline-info">{{ __('Voter') }}</button></a>
+                            <a href="{{ route('server.vote', ['game' => $s->game->slug,'server' => $s->slug]) }}"><button class="btn btn-outline-info">{{ __('Voter') }}</button></a>
                         </div>
                     </div>
                 </div>

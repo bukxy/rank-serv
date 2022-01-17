@@ -40,10 +40,9 @@ Route::middleware(['auth'])->group(function() {
     include __DIR__.'/back.php';
 });
 Route::prefix('/{game}')->group(function() {
-    Route::get('/', [ServerController::class, 'listServersByGame'])->name('listServersByGame');
-    Route::get('/{server}', [FrontController::class, 'serverInfo'])->name('serverInfo');
-    Route::get('/{server}/vote', [ServerVoteController::class, 'vote'])->name('serverVote');
-    Route::post('/{server}/vote', [ServerVoteController::class, 'voteStore'])->name('serverVoteStore');
+    Route::get('/', [ServerController::class, 'list'])->name('game.server');
+    Route::get('/tag/{tag}', [ServerController::class, 'filter'])->name('server.tag');
+    Route::get('/{server}', [FrontController::class, 'info'])->name('serverInfo');
+    Route::get('/{server}/vote', [ServerVoteController::class, 'vote'])->name('server.vote');
+    Route::post('/{server}/vote', [ServerVoteController::class, 'voteStore'])->name('server.voteStore');
 });
-
-

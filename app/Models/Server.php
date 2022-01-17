@@ -17,6 +17,7 @@ class Server extends Model
         'name',
         'slug',
         'ip',
+        'host_id',
         'website',
         'slots',
         'access',
@@ -49,5 +50,9 @@ class Server extends Model
 
     public function logo() {
         return $this->hasOne(Image::class, 'id', 'logo_id');
+    }
+
+    public function host() {
+        return $this->hasOne(Image::class, 'id', 'host_id');
     }
 }
