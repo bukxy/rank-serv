@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Server;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Testing\Fluent\Concerns\Has;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller {
@@ -18,7 +18,9 @@ class UserController extends Controller {
     }
 
     public function servers() {
-        return view('user.servers');
+        return view('user.servers', [
+            'servers' => Server::where('user_id', Auth::id())->get()
+        ]);
     }
 
     public function settings() {

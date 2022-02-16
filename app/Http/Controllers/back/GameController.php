@@ -28,11 +28,14 @@ class GameController extends Controller
     public function addStore(Request $req) {
 
         $req->validate([
-            'name' => 'required|unique:games|max:255',
-            'logo' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'name'  => 'required|unique:games|max:255',
+            'logo'  => 'required|mimes:png,jpg,jpeg|max:2048',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
-            'tag'  =>  'nullable'
+            'tag'   => 'nullable',
+            'type'  => 'nullable'
         ]);
+
+        $type = isset($req->type) ? 1 : 0;
         /*
          * LOGO
          */
@@ -61,13 +64,8 @@ class GameController extends Controller
             'slug'      => Str::of($req->name)->slug('-'),
             'logo_id'   => $logo->id,
             'image_id'  => $image->id,
+            'type'      => $type
         ]);
-
-//        $i = Game::where('image_id', $image->id)->first();
-//        $image->game_id = $i->id;
-//        $image->save();
-//        $logo->game_id = $i->id;
-//        $logo->save();
 
         if($req->tag)
             foreach ($req->tag as $tag) {
@@ -90,38 +88,49 @@ class GameController extends Controller
     public function editStore(Request $req, $slug)
     {
         $req->validate([
-            'name' => 'required|max:255',
-            'image' => 'mimes:png,jpg,jpeg|max:2048',
-            'tag' => 'nullable'
+            'name'  => 'required|max:255',
+            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
+            'logo'  => 'nullable|mimes:png,jpg,jpeg|max:2048',
+            'type'  => 'nullable'
         ]);
 
-        $ActualGame = Game::where('slug', $slug)->first();
-        if (!$ActualGame)
+        $type = isset($req->type) ? 1 : 0;
+
+        $game = Game::where('slug', $slug)->first();
+        if (!$game)
             return redirect()->back()->with('error', 'Aucun jeu trouvé !');
 
-        if ($req->image) { // supprime et save la nouvelle image
-            $getImages = Image::where('id', $ActualGame->image_id)->get();
-            foreach ($getImages as $i)
-                File::delete('public/ws/' . $i->path);
-
-            $req->file('image')->store('public/ws');
-            $path = $req->file('image')->hashName();
-            Image::where('id', $ActualGame->image_id)->update([
-                'user_id' => Auth::id(),
-                'path' => $path
+        if ($req->name) {
+            Game::where('slug', $slug)->update([
+                'user_id'   => Auth::id(),
+                'name'      => $req->name,
+                'slug'      => Str::of($req->name)->slug('-'),
+                'type'      => $type
             ]);
-        } else {
-            $image = Image::where('id', $req->id)->first();
         }
 
-        if (!$req->name)
-            $req->name = $ActualGame->name;
+        if ($req->image) { // supprime et save la nouvelle banner
+            $i = Image::where('id', $game->image_id)->first();
+            File::delete('public/ws/' . $i->path);
 
-        Game::where('slug', $slug)->update([
-            'user_id' => Auth::id(),
-            'name' => $req->name,
-            'slug' => Str::of($req->name)->slug('-')
-        ]);
+            $pathImage = Str::of($req->name)->slug('-').'.'.$req->file('image')->extension();
+            $req->file('image')->storeAs('public/ws', $pathImage);
+            Image::where('id', $game->image_id)->update([
+                'user_id' => Auth::id(),
+                'path' => $pathImage
+            ]);
+        }
+        if ($req->logo) { // supprime et save la nouvelle banner
+            $logo = Image::where('id', $game->logo_id)->first();
+            File::delete('public/ws/' . $logo->path);
+
+            $pathLogo = Str::of($req->name.'-logo')->slug('-').'.'.$req->file('logo')->extension();
+            $req->file('logo')->storeAs('public/ws', $pathLogo);
+            Image::where('id', $game->logo_id)->update([
+                'user_id' => Auth::id(),
+                'path' => $pathLogo
+            ]);
+        }
 
         return redirect()->route('back.game')->with('success','Jeu "'.$req->name.'" édité !');
     }
@@ -220,7 +229,6 @@ class GameController extends Controller
                 'errors' => $validator->messages()
             ]);
         }
-
         $tag = Tag::where('id', $req->id)->first();
         if($tag != null) {
             Tag::where('id', $req->id)->update([
@@ -239,6 +247,10 @@ class GameController extends Controller
         ]);
         $tag = Tag::where('id', $req->id)->first();
         if($tag !== null) {
+            $servers = Server::where('game_id', $tag->game_id)->get();
+            foreach ($servers as $s) {
+                $s->tags()->detach($tag->id);
+            }
             $tag->delete();
             return redirect()->back()->with('success', 'Le tag "'.$tag->name.'" à été supprimé  !');
         } else {

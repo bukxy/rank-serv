@@ -10,7 +10,7 @@
         @if ($message = Session::get('expiration_date'))
             <div class="alert alert-warning alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>Next vote at {{ $message }} (UTC+1)</strong>
+                <strong>Next vote at {{ $message }} (UTC)</strong>
             </div>
         @endif
 

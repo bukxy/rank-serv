@@ -1,15 +1,16 @@
+require('./tinymce');
 $(document).ready(function($) {
+
     let selectGame = $('.js-single-game');
         selectGame.select2({
             placeholder: 'Select a game'
         });
-    selectGame.val(null).trigger('change');
     let listTag = $('.js-add-server-tag')
         listTag.select2({
             placeholder: 'Select tags'
         });
 
-    let _token = $('meta[name="csrf-token"]').attr('content')
+    let _token = $('input[name="_token"]').val()
     selectGame.on('change',function(e){
         e.preventDefault();
         $.ajaxSetup({
@@ -41,12 +42,15 @@ $(document).ready(function($) {
     listHost.select2({
         placeholder: 'Select Country',
     });
-    listHost.val(null).trigger('change');
-
     let listLang = $('.js-add-server-lang');
     listLang.select2({
         placeholder: 'Select Languages',
     });
-    listLang.val(null).trigger('change');
 
+    // Vide les champs
+    if (!$('form').hasClass('js-server-edit')) {
+        selectGame.val(null).trigger('change');
+        listHost.val(null).trigger('change');
+        listLang.val(null).trigger('change');
+    }
 });

@@ -44,17 +44,16 @@ class ServerVoteController extends Controller
 
         $cookie_timer = 120; // 120 minutes
         if ($vote){
-            $expiration_timer = Carbon::now()->tz('Europe/Paris')->second(0)->diffInMinutes(Carbon::createFromDate($vote->expiration));
-            $cookie_timeleft = $cookie_timer - $expiration_timer;
+            $expiration_timer = Carbon::now()->second(0)->diffInMinutes(Carbon::createFromDate($vote->expiration)->addMinute());
             if(!$req->cookie('vote_')) {
-                return Redirect::back()->with('warning', 'You need wait 2 hour !')->withCookie('vote_', Carbon::now()->tz('Europe/Paris')->second(0)->subMinutes($expiration_timer),$cookie_timeleft);
+                return Redirect::back()->with('warning', 'You need wait 2 hour !')->withCookie('vote_', Carbon::now()->second(0)->addMinutes($expiration_timer),$expiration_timer);
             }
-            return Redirect::back()->with(['expiration_date' => Carbon::now()->tz('Europe/Paris')->addMinutes($cookie_timeleft)->format('H\h \a\n\d i\m')]);
+            return Redirect::back()->with(['expiration_date' => Carbon::now()->second(0)->addMinutes($expiration_timer)->format('H\h \a\n\d i\m')]);
         }
 
         VoteProtect::create([
             'ip' => $ip,
-            'expiration' => Carbon::now()->tz('Europe/Paris')->second(0)->addHours(2)->toDateTimeString()
+            'expiration' => Carbon::now()->second(0)->addMinutes(120)->toDateTimeString()
         ]);
 
         $server = Server::where('slug', $server)->first();
@@ -66,10 +65,10 @@ class ServerVoteController extends Controller
             Vote::create([
                 'server_id' => $server->id,
                 'pseudo' => $req->name,
-                'date' => Carbon::now()->tz('Europe/Paris')->second(0)->toDateTimeString()
+                'date' => Carbon::now()->second(0)->toDateTimeString()
             ]);
         }
 
-        return Redirect::back()->with('success', $ip)->withCookie('vote_', Carbon::now()->tz('Europe/Paris')->second(0)->addHours(2)->toDateTimeString() , $cookie_timer);
+        return Redirect::back()->with('success', $ip)->withCookie('vote_', Carbon::now()->second(0)->addMinutes(120)->toDateTimeString() , $cookie_timer);
     }
 }

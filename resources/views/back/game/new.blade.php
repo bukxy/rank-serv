@@ -41,7 +41,7 @@
     </div>
     <div class="col-12 row">
         @error('tag')
-        <div class="alert alert-danger">{{ $message }}</div>
+        <div class="alert alert-danger col-12">{{ $message }}</div>
         @enderror
         <div class="col-2">
             <label for="tag">Select tag</label>
@@ -50,6 +50,19 @@
             <div class="form-group">
                 <select class="form-control js-add-game-tag" id="tag" name="tag[]" multiple="multiple"></select>
             </div>
+        </div>
+    </div>
+    <div class="form-switch row py-2 px-0">
+        @error('type')
+        <div class="alert alert-danger col-12">{{ $message }}</div>
+        @enderror
+        <div class="col-2">
+            <label class="form-check-label" for="switchType">Type</label>
+        </div>
+        <div class="col-8">
+            <label class="form-check-label" for="switchType">Game server</label>
+            <input class="form-check-input m-1" type="checkbox" role="switch" id="switchType">
+            <label class="form-check-label" for="switchType">Other server (Voice)</label>
         </div>
     </div>
     @csrf

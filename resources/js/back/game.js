@@ -1,14 +1,14 @@
 $(document).ready(function($) {
-    let editGame = $('.js-add-game-tag')
-    editGame.select2({
-        tags: true
-    });
+    // let editGame = $('.js-add-game-tag')
+    // editGame.select2({
+    //     tags: true
+    // });
 
     /*
         Add game tag
      */
     let _token = $('meta[name="csrf-token"]').attr('content')
-    $('button[data-target="#addGameTag"]').click(function(e) {
+    $('button[data-bs-target="#addGameTag"]').click(function(e) {
         e.preventDefault();
         let id = $(this).data('gameid');
         $("#addGameTag-ajax").on('submit', function (e) {
@@ -54,7 +54,7 @@ $(document).ready(function($) {
     /*
         Edit game tag
      */
-    $('button[data-target="#editGameTag"]').on('click', function(e){
+    $('button[data-bs-target="#editGameTag"]').on('click', function(e){
         e.preventDefault();
         let id = $(this).data('gameid');
         $.ajax({

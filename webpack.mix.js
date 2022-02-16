@@ -18,5 +18,4 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/back/game.js', 'public/js/back')
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/back/admin.scss', 'public/css/back')
-    .copyDirectory('vendor/tinymce/tinymce', 'public/js/tinymce')
     .sourceMaps();

@@ -234,7 +234,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">PORT</span>
                                 </div>
-                                <input type="text" class="form-control" id="tsip" name="tsport" placeholder="XXXXX" value="{{ old('tsport') }}">
+                                <input type="text" class="form-control" id="tsport" name="tsport" placeholder="XXXXX" value="{{ old('tsport') }}">
                             </div>
                         </div>
                     </div>
@@ -261,7 +261,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">PORT</span>
                                 </div>
-                                <input type="text" class="form-control" id="mumbleip" name="mumbleport" placeholder="XXXXX" value="{{ old('mumbleport') }}">
+                                <input type="text" class="form-control" id="mumbleport" name="mumbleport" placeholder="XXXXX" value="{{ old('mumbleport') }}">
                             </div>
                         </div>
                     </div>

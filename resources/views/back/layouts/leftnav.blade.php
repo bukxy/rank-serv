@@ -82,7 +82,9 @@
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"><i class="fas fa-arrows-alt-h"></i></button>
+        <button class="rounded-circle border-0" id="sidebarToggle">
+            <i class="fa-solid fa-arrows-left-right"></i>
+        </button>
     </div>
 
 </ul>

@@ -30,6 +30,8 @@
         position: absolute;
         top: -15px;
         left: -15px;
+        width: 35px;
+        height: auto;
         border: solid 1px $border-color;
         border-radius: 3px;
         padding: 0.3em 0.8em;
@@ -52,11 +54,11 @@
     }
     & .logo {
         top: 20px;
-        left: -32px;
+        left: -50px;
     }
     & .host {
-        top: 8px;
-        left: -23px;
+        top: -32px;
+        left: -35px;
     }
     & .banner {
         padding: 0;

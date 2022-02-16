@@ -17,6 +17,8 @@ class Server extends Model
         'name',
         'slug',
         'ip',
+        'port',
+        'query',
         'host_id',
         'website',
         'slots',
@@ -30,6 +32,7 @@ class Server extends Model
         'youtube',
         'vote',
         'click',
+        'api',
     ];
 
     public function game() {
@@ -52,7 +55,9 @@ class Server extends Model
         return $this->hasOne(Image::class, 'id', 'logo_id');
     }
 
-    public function host() {
-        return $this->hasOne(Image::class, 'id', 'host_id');
+    public function host($id) {
+        $lang = Language::where('id',$id)->first();
+        $image = Image::find($lang->image_id);
+        return $image->path;
     }
 }

@@ -24,7 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('vote:delete')->everyMinute();
+         $schedule->command('voteProtection:delete')->everyMinute();
+         // Delete all votes every month the 1st day at 00:00
+         $schedule->command('vote:delete')->monthly();
     }
 
     /**

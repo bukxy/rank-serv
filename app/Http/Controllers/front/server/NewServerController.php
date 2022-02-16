@@ -28,20 +28,18 @@ class NewServerController extends Controller
             'banner' => 'nullable|mimes:png,jpg,jpeg,gif|dimensions:max_width=200,max_height=200|max:2048',
             'logo' => 'nullable|mimes:png,jpg,jpeg,gif|dimensions:max_width=64,max_height=64|max:2048',
             'name' => 'required',
-            'ip' => 'required',
+            'ip' => 'nullable',
             'port' => ['nullable','not_regex:/[^0-9]/'],
-            'host' => 'required',
+            'host' => 'nullable',
             'website' => 'nullable',
-            'slots' => ['required','not_regex:/[^0-9]/'],
-            'access' => 'required',
-            'desc' => 'required',
-            'lang' => 'required',
-            'tag' => 'required',
+            'slots' => ['nullable','not_regex:/[^0-9]/'],
+            'access' => 'nullable',
+            'desc' => 'nullable',
+            'lang' => 'nullable',
+            'tag' => 'nullable',
             'discord' => 'nullable',
-            'tsip' => ['nullable','regex:/[^.0-9]/' ],
-            'tsport' => ['nullable','regex:/[^.0-9]/'],
-            'mumbleip' => ['nullable','regex:/[^.0-9]/'],
-            'mumbleport' => ['nullable','regex:/[^.0-9]/'],
+            'ts_ip' => ['nullable','regex:/[^.0-9]/' ],
+            'mumble_ip' => ['nullable','regex:/[^.0-9]/'],
             'twitch' => 'nullable',
             'youtube' => 'nullable',
         ]);
@@ -115,17 +113,25 @@ class NewServerController extends Controller
             'logo_id' => $img2->id,
             'name' => $req->name,
             'slug' => Str::of($req->name)->slug('-'),
-            'ip' => $ip,
+            'ip' => $req->ip,
+            'port' => $req->port,
             'host_id' => $req->host,
             'website' => $req->website,
             'slots' => $req->slots,
             'access' => $req->access,
             'description' => $req->desc,
             'discord' => $req->discord,
-            'teamspeak' => $ts,
-            'mumble' => $mumble,
+            'teamspeak' => $req->ts_ip,
+            'teamspeak_port' => $req->ts_port,
+            'mumble' => $req->mumble_ip,
+            'mumble_port' => $req->mumble_port,
             'twitch' => $req->twitch,
             'youtube' => $req->youtube,
+            'api'   => Str::uuid()
+        ]);
+
+        Server::where('id', $server->id)->update([
+           'slug' => $server->slug.'-'.$server->id
         ]);
 
         if ($req->tag)

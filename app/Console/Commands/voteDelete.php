@@ -2,7 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\VoteProtect;
+use App\Models\Server;
+use App\Models\Vote;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -20,7 +21,7 @@ class voteDelete extends Command
      *
      * @var string
      */
-    protected $description = 'Delete votes after 2 hours';
+    protected $description = 'Command description';
 
     /**
      * Create a new command instance.
@@ -39,8 +40,12 @@ class voteDelete extends Command
      */
     public function handle()
     {
-        VoteProtect::where('expiration', '<=', Carbon::now()->tz('Europe/Paris')->toDateTimeString())->each(function ($i) {
+        Vote::all()->each(function ($i) {
             $i->delete();
+        });
+
+        Server::all()->each(function ($i) {
+            $i->vote = 0;
         });
     }
 }

@@ -44,7 +44,7 @@ $(document).ready(function($) {
     /*
         Edit Lang
      */
-    $('button[data-target="#editLanguage"]').on('click', function(e){
+    $('button[data-bs-target="#editLanguage"]').on('click', function(e){
         e.preventDefault();
         let id = $(this).data('langid');
         $.ajax({

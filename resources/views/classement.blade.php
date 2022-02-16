@@ -24,7 +24,7 @@
                         Avis : <i class="far fa-comment"></i> (nb avis)
                     </div>
                 </div>
-                <div class="col-12 row border-bottom">
+                <div class="col-12 row border-bottom position-relative">
                     <div class="logo">
                         <img src="{{ Storage::disk('s3')->url('media/logo/'.$s->logo->path) }}">
                     </div>
@@ -37,9 +37,9 @@
                         <p>{{ $s->description }}</p>
                     </div>
                 </div>
-                <div class="col-3 row slots-ip">
+                <div class="col-3 row slots-ip position-relative">
                     <div class="host">
-                        <img src="{{ asset('media/'.$s->host->path) }}">
+                        <img src="{{ asset('media/'.$s->host($s->host_id)) }}">
                     </div>
                     <div class="slots m-auto">
                         <span>0/{{ $s->slots }} players</span>

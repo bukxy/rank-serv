@@ -5,6 +5,7 @@ use App\Http\Controllers\front\server\NewServerController;
 use App\Http\Controllers\front\server\ServerController;
 use App\Http\Controllers\front\server\ServerVoteController;
 use App\Http\Controllers\front\UserController;
+use App\Http\Controllers\testController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,10 +28,16 @@ Route::middleware(['auth'])->group(function() {
 
         Route::get('/', [UserController::class, 'account'])->name('my-account');
         Route::get('servers', [UserController::class, 'servers'])->name('my-servers');
+        Route::get('servers/{slug}', [ServerController::class, 'edit'])->name('my-servers.edit');
+        Route::post('servers/{slug}/info', [ServerController::class, 'getServerToUploadImage'])->name('my-servers.edit.infoserver'); // take slug server when upload image in ckeditor
+        Route::post('servers/{slug}', [ServerController::class, 'edit'])->name('my-servers.store');
+
+        Route::post('servers/image/upload', [ServerController::class, 'upload'])->name('test'); // test upload
         Route::get('settings', [UserController::class, 'settings'])->name('my-settings');
-        Route::post('avatar', [UserController::class, 'avatar'])->name('my-settings.avatar');
-        Route::post('global', [UserController::class, 'global'])->name('my-settings.global');
-        Route::post('password', [UserController::class, 'password'])->name('my-settings.password');
+
+        Route::post('avatar', [UserController::class, 'avatar'])->name('my-profile.avatar');
+        Route::post('global', [UserController::class, 'global'])->name('my-profile.global');
+        Route::post('password', [UserController::class, 'password'])->name('my-profile.password');
 
         Route::get('add-server', [NewServerController::class, 'new'])->name('add-server');
         Route::post('add-server', [NewServerController::class, 'newStore'])->name('add-server.store');

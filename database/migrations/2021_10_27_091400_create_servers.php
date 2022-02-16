@@ -23,12 +23,14 @@ class CreateServers extends Migration
             $table->foreign('logo_id')->references('id')->on('images');
             $table->string('name');
             $table->string('slug');
-            $table->string('ip');
-            $table->unsignedBigInteger('host_id');
-            $table->foreign('host_id')->references('id')->on('images');
+            $table->string('ip')->nullable();
+            $table->integer('port')->nullable();
+            $table->integer('query')->nullable();
+            $table->unsignedBigInteger('host_id')->nullable();
+            $table->foreign('host_id')->references('id')->on('languages');
             $table->string('website')->nullable();
-            $table->string('slots');
-            $table->string('access');
+            $table->string('slots')->nullable();
+            $table->boolean('access')->default(0);
             $table->longText('description')->nullable();
             $table->string('discord')->nullable();
             $table->string('teamspeak')->nullable();
@@ -37,6 +39,7 @@ class CreateServers extends Migration
             $table->string('youtube')->nullable();
             $table->bigInteger('vote')->default(0);
             $table->bigInteger('click')->default(0);
+            $table->string('api');
             $table->timestamps();
         });
     }
