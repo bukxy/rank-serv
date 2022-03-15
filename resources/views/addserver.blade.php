@@ -101,7 +101,7 @@
                         @enderror
                         <div class="col-9">
                             <div class="form-group">
-                                <select class="form-control js-add-server-host" name="host">
+                                <select class="form-control js-add-server-host" id="tag" name="host">
                                     @foreach($languages as $l)
                                         <option value="{{ $l->id }}">{{ $l->name }}</option>
                                     @endforeach
@@ -146,7 +146,7 @@
                         <div class="col-9">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="access" id="free" value="0" checked>
-                                <label class="form-check-label" for="free">Free Acces</label>
+                                <label class="form-check-label" for="free">Free Access</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="access" id="whitelist" value="1">

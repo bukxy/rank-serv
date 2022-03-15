@@ -17,7 +17,7 @@
                 <h6 class="font-weight-bold align-items-center text-primary mb-0">Liste des languages des serveurs</h6>
             </div>
             <div class="col-2 d-flex">
-                <button type="button" class="btn btn-success m-auto" data-toggle="modal" data-target="#addLanguage">
+                <button type="button" class="btn btn-success m-auto" data-bs-toggle="modal" data-bs-target="#addLanguage">
                     New language
                 </button>
             </div>
@@ -68,18 +68,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">New language</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" enctype="multipart/form-data" id="addLang-ajax">
                 <div class="modal-body">
-                    <div class="alert alert-success text-center alert-block d-none">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
+                    <div class="alert alert-success text-center alert-dismissible d-none" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <strong></strong>
                     </div>
-                    <div class="alert alert-danger text-center alert-block d-none">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
+                    <div class="alert alert-danger text-center alert-dismissible d-none" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <strong></strong>
                     </div>
                     <div class="input-group mb-3">
@@ -93,14 +91,13 @@
                             <span class="input-group-text" id="file">Image</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="file" name="file">
-                            <label class="custom-file-label" for="file">Choose file</label>
+                            <input class="form-control" type="file" id="formFile" name="file">
                         </div>
                     </div>
                     @csrf
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-refresh="refresh" data-dismiss="modal">Terminer les ajouts</button>
+                    <button type="button" class="btn btn-secondary" data-refresh="refresh" data-bs-dismiss="modal">Terminer les ajouts</button>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
@@ -116,18 +113,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Language edit <span class="old-nameValue"></span></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" id="editLang-ajax">
                 <div class="modal-body">
-                    <div class="alert alert-success text-center alert-block d-none">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
+                    <div class="alert alert-success text-center alert-dismissible d-none" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <strong></strong>
                     </div>
-                    <div class="alert alert-danger text-center alert-block d-none">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
+                    <div class="alert alert-danger text-center alert-dismissible d-none" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <strong></strong>
                     </div>
                     <div class="input-group mb-3">
@@ -148,7 +143,7 @@
                     @csrf
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-refresh="refresh" data-dismiss="modal">Terminer les modifications</button>
+                    <button type="button" class="btn btn-secondary" data-refresh="refresh" data-bs-dismiss="modal">Terminer les modifications</button>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
@@ -164,9 +159,7 @@ MODAL CONFIRM DELETE
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Confirmation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" action="{{route('back.deleteLanguage.store')}}">
                 @csrf
@@ -178,7 +171,7 @@ MODAL CONFIRM DELETE
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
                     <button type="submit" class="btn btn-danger">Oui</button>
                 </div>
             </form>

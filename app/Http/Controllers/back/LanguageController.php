@@ -142,12 +142,19 @@ class LanguageController extends Controller
             'id' => 'required',
         ]);
 
-        if($validator){
-            $servers = Server::where('game_id', $req->id)->get();
-            if(count($servers) > 0)
-                return redirect()->back()->with('error', 'Ce language est utilisé par"'.count($servers).'" servers! Il n\'est pas possible de le supprimer...');
+        $lang = Language::find($req->id);
+        if($validator && $lang !== null){
 
-            $lang = Language::find($req->id);
+            $servers = Server::where('game_id', $lang->game_id)->get();
+            
+            foreach ($servers as $s) {
+                $s->languages()->detach($lang->id);
+            }
+
+//            $servers = Server::where('game_id', $req->id)->get();
+//            if(count($servers) > 0)
+//                return redirect()->back()->with('error', 'Ce language est utilisé par"'.count($servers).'" servers! Il n\'est pas possible de le supprimer...');
+
             $image = Image::find($lang->image_id);
             File::delete('media/'.$image->path);
             $lang->delete();

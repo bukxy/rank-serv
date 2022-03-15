@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div class="form-switch row py-2 px-0">
+    <div class="form-switch row mt-3 mb-3 py-2 px-0">
         @error('type')
         <div class="alert alert-danger col-12">{{ $message }}</div>
         @enderror
@@ -60,7 +60,7 @@
         </div>
         <div class="col-8">
             <label class="form-check-label" for="switchType">Game server</label>
-            <input class="form-check-input m-1" type="checkbox" role="switch" id="switchType" name="type">
+            <input class="form-check-input m-1" type="checkbox" role="switch" id="switchType" name="type" @if($game->type == 1) checked @endif>
             <label class="form-check-label" for="switchType">Other server (Voice)</label>
         </div>
     </div>

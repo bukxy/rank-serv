@@ -1,5 +1,6 @@
 require('./tinymce');
 $(document).ready(function($) {
+    $("[data-bs-toggle='tooltip']").tooltip();
 
     let selectGame = $('.js-single-game');
         selectGame.select2({

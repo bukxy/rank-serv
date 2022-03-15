@@ -29,12 +29,14 @@ class CreateServers extends Migration
             $table->unsignedBigInteger('host_id')->nullable();
             $table->foreign('host_id')->references('id')->on('languages');
             $table->string('website')->nullable();
-            $table->string('slots')->nullable();
+            $table->integer('slots')->nullable();
             $table->boolean('access')->default(0);
             $table->longText('description')->nullable();
             $table->string('discord')->nullable();
             $table->string('teamspeak')->nullable();
+            $table->integer('teamspeak_port')->nullable();
             $table->string('mumble')->nullable();
+            $table->integer('mumble_port')->nullable();
             $table->string('twitch')->nullable();
             $table->string('youtube')->nullable();
             $table->bigInteger('vote')->default(0);

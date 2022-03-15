@@ -246,7 +246,7 @@ class GameController extends Controller
             'id' => 'required',
         ]);
         $tag = Tag::where('id', $req->id)->first();
-        if($tag !== null) {
+        if($validator && $tag !== null) {
             $servers = Server::where('game_id', $tag->game_id)->get();
             foreach ($servers as $s) {
                 $s->tags()->detach($tag->id);

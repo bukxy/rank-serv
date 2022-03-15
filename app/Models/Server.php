@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Server extends Model
 {
     use HasFactory;
+    use Filterable;
 
     protected $fillable = [
         'user_id',
@@ -35,6 +37,23 @@ class Server extends Model
         'api',
     ];
 
+    private static $whiteListFilter =[
+        'game_id',
+        'name',
+        'ip',
+        'host_id',
+        'website',
+        'access',
+        'language',
+        'discord',
+        'teamspeak',
+        'mumble',
+        'twitch',
+        'youtube',
+        'vote',
+        'click',
+    ];
+
     public function game() {
         return $this->hasOne(Game::class, 'id', 'game_id');
     }
@@ -58,6 +77,7 @@ class Server extends Model
     public function host($id) {
         $lang = Language::where('id',$id)->first();
         $image = Image::find($lang->image_id);
-        return $image->path;
+        return [$lang->name,$image->path];
     }
+
 }

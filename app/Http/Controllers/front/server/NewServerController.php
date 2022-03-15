@@ -34,9 +34,9 @@ class NewServerController extends Controller
             'website' => 'nullable',
             'slots' => ['nullable','not_regex:/[^0-9]/'],
             'access' => 'nullable',
-            'desc' => 'nullable',
+            'desc' => 'required',
             'lang' => 'nullable',
-            'tag' => 'nullable',
+            'tag' => 'required',
             'discord' => 'nullable',
             'ts_ip' => ['nullable','regex:/[^.0-9]/' ],
             'mumble_ip' => ['nullable','regex:/[^.0-9]/'],
@@ -139,7 +139,8 @@ class NewServerController extends Controller
         if ($req->lang)
             $server->languages()->syncWithoutDetaching($langs);
 
-        return redirect()->route('serverInfo', ["game" => $req->game]);
+//        return redirect()->route('serverInfo', ["game" => $req->game]);
+        return redirect()->route('index');
     }
 
     public function getGameTags($id) {

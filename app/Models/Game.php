@@ -16,6 +16,7 @@ class Game extends Model
         'slug',
         'logo_id',
         'image_id',
+        'type',
     ];
 
     public function servers() {

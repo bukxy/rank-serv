@@ -1,8 +1,153 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-lg">
-    <div class="row justify-content-center">
+<div class="container-lg row">
+    <div class="row col-4">
+        <form method="post" action="{{ route('game.server.filter', ['game' => $game->slug]) }}">
+            <div class="col-12 row">
+                <div class="col-12">
+                    <h6>Search by name</h6>
+                </div>
+                <div class="form-group col-12">
+                    <input type="text" class="form-control form-control-sm" placeholder="The server name" name="name">
+                </div>
+            </div>
+            <div class="col-12 row">
+                <div class="col-12">
+                    <h6>Vote(s) Range</h6>
+                </div>
+                <div class="form-group col-5">
+                    <input type="text" class="form-control form-control-sm" placeholder="50" name="voteMin">
+                </div>
+                <div class="col-2"><p>/</p></div>
+                <div class="form-group col-5">
+                    <input type="text" class="form-control form-control-sm" placeholder="1000" name="voteMax">
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="col-12">
+                    <h6>Server Location</h6>
+                </div>
+                <select class="form-control js-add-server-lang" name="host[]" multiple="multiple">
+                    @forelse($languages as $l)
+                        <option selected="selected" value="{{ $l->id }}">{{ $l->name }}</option>
+                    @empty
+                        <option selected="selected" value="">{{ __('NONE') }}</option>
+                    @endforelse
+                </select>
+            </div>
+            <div class="col-12">
+                <div class="col-12">
+                    <h6>Server Languages</h6>
+                </div>
+                <select class="form-control js-add-server-lang" name="lang[]" multiple="multiple">
+                    @forelse($languages as $l)
+                        <option selected="selected" value="{{ $l->id }}">{{ $l->name }}</option>
+                    @empty
+                        <option selected="selected" value="">{{ __('NONE') }}</option>
+                    @endforelse
+                </select>
+            </div>
+            <div class="col-12">
+                <div class="col-12">
+                    <h6>Server Tags</h6>
+                </div>
+                <select class="form-control js-add-server-lang" name="tag[]" multiple="multiple">
+                    @forelse($tags as $t)
+                        <option selected="selected" value="{{ $t->id }}">{{ $t->name }}</option>
+                    @empty
+                        <option selected="selected" value="">{{ __('NONE') }}</option>
+                    @endforelse
+                </select>
+            </div>
+            <div class="col-12 container row">
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="access" id="flexRadioDefault1" value="2" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">{{__('All')}}</label>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="access" id="flexRadioDefault2" value="0">
+                    <label class="form-check-label" for="flexRadioDefault2">{{__('Free access')}}</label>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="access" id="flexRadioDefault3" value="1">
+                    <label class="form-check-label" for="flexRadioDefault3">{{__('Whitelist')}}</label>
+                </div>
+            </div>
+            <div class="col-12 row">
+                <div class="col-12">
+                    <h6>Website</h6>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="website" id="flexRadioDefault1" value="2" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">{{__('All')}}</label>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="website" id="flexRadioDefault2" value="0">
+                    <label class="form-check-label" for="flexRadioDefault2">{{__('Yes')}}</label>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="website" id="flexRadioDefault3" value="1">
+                    <label class="form-check-label" for="flexRadioDefault3">{{__('No')}}</label>
+                </div>
+            </div>
+            <div class="col-12 row">
+                <div class="col-12">
+                    <h6>Discord Server</h6>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="discord" id="flexRadioDefault1" value="2" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">{{__('All')}}</label>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="discord" id="flexRadioDefault2" value="0">
+                    <label class="form-check-label" for="flexRadioDefault2">{{__('Yes')}}</label>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="discord" id="flexRadioDefault3" value="1">
+                    <label class="form-check-label" for="flexRadioDefault3">{{__('No')}}</label>
+                </div>
+            </div>
+            <div class="col-12 row">
+                <div class="col-12">
+                    <h6>Teamspeak Server</h6>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="teamspeak" id="flexRadioDefault1" value="2" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">{{__('All')}}</label>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="teamspeak" id="flexRadioDefault2" value="0">
+                    <label class="form-check-label" for="flexRadioDefault2">{{__('Yes')}}</label>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="teamspeak" id="flexRadioDefault3" value="1">
+                    <label class="form-check-label" for="flexRadioDefault3">{{__('No')}}</label>
+                </div>
+            </div>
+            <div class="col-12 row">
+                <div class="col-12">
+                    <h6>Mumble Server</h6>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="mumble" id="flexRadioDefault1" value="2" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">{{__('All')}}</label>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="mumble" id="flexRadioDefault2" value="0">
+                    <label class="form-check-label" for="flexRadioDefault2">{{__('Yes')}}</label>
+                </div>
+                <div class="form-check col-4">
+                    <input class="form-check-input" type="radio" name="mumble" id="flexRadioDefault3" value="1">
+                    <label class="form-check-label" for="flexRadioDefault3">{{__('No')}}</label>
+                </div>
+            </div>
+            @csrf
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <div class="row col-8 justify-content-center">
         @foreach($servers as $s)
             <div class="card servers row col-12 mb-4
             @if((($servers->currentPage()-1) * $servers->perPage() + $loop->index + 1) == 1)first
@@ -38,8 +183,8 @@
                     </div>
                 </div>
                 <div class="col-3 row slots-ip position-relative">
-                    <div class="host">
-                        <img src="{{ asset('media/'.$s->host($s->host_id)) }}">
+                    <div class="host" data-bs-toggle="tooltip" title="{{ $s->host($s->host_id)[0] }}">
+                        <img src="{{ asset('media/'.$s->host($s->host_id)[1]) }}">
                     </div>
                     <div class="slots m-auto">
                         <span>0/{{ $s->slots }} players</span>
@@ -60,10 +205,10 @@
                         <div class="col-5 tags">
                             @forelse($s->tags as $tag)
                                 @if($loop->index <= 5)
-                                    <span class="badge badge-primary">{{ $tag->name }}</span>
+                                    <span class="badge bg-primary">{{ $tag->name }}</span>
                                 @else
-                                     @if($loop->count >= 6)
-                                    <span class="badge badge-warning">+{{ $loop->count - ($loop->index) }}</span>
+                                    @if($loop->count >= 6)
+                                        <span class="badge bg-warning">+{{ $loop->count - ($loop->index) }}</span>
                                     @endif
                                     @break
                                 @endif
@@ -74,10 +219,10 @@
                             <span>Langs :</span>
                             @forelse($s->languages as $lang)
                                 @if($loop->index <= 5)
-                                    <img src="{{asset('media/'.$lang->image->path)}}">
+                                    <img src="{{asset('media/'.$lang->image->path)}}" data-bs-toggle="tooltip" title="{{ $lang->name }}">
                                 @else
                                 @if($loop->count >= 6)
-                                    <span class="badge badge-warning">+{{ $loop->count - ($loop->index) }}</span>
+                                    <span class="badge bg-warning">+{{ $loop->count - ($loop->index) }}</span>
                                 @endif
                                 @break
                             @endif

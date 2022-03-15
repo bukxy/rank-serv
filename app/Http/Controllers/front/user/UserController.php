@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\front;
+namespace App\Http\Controllers\front\user;
 
 use App\Http\Controllers\Controller;
+use App\Mail\changeEmailAddress;
 use App\Models\Server;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller {
@@ -24,23 +27,31 @@ class UserController extends Controller {
     }
 
     public function settings() {
-        return view('user.settings');
+        return view('user.settings', ['user' => Auth::user()]);
     }
 
     /*
      * Store function for pseudo + Email
      */
-    public function global(Request $request) {
-        $request->validate([
-            'pseudo' => ['unique:users', 'nullable' ,'max:25'],
-            'email' => ['unique:users', 'nullable' ,'email:rfc,dns']
+    public function global(Request $req) {
+        $req->validate([
+            'pseudo' => 'nullable|unique:users|min:3|max:25',
+            'email' => 'nullable|unique:users|email:rfc,dns'
         ]);
-        if(!$request->hasAny(['pseudo', 'email']) )
-            User::where('id', Auth::id())->update([
-                'pseudo' => $request->pseudo
+        if ($req->pseudo)
+            User::find(Auth::id())->update([
+                'pseudo' => Str::of($req->pseudo)->slug('_')
             ]);
 
-        return redirect()->route('my-account');
+        if ($req->email) {
+            User::find(Auth::id())->update([
+                'email' => $req->email
+            ]);
+            $user = Auth::user();
+            Mail::to($user->email)->send(new changeEmailAddress($user, $req->email));
+        }
+
+        return redirect()->back();
     }
 
     /*

@@ -9,32 +9,24 @@
                 <div class="row">
                     <div class="input-group mb-3">
                         <div class="col-3">
-                            <label for="game">Select banner</label>
+                            <p>Select banner</p>
                             @error('banner')
-                            <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="banner">Banner</span>
-                        </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="banner" name="banner">
-                            <label class="custom-file-label" for="banner">Choose file</label>
+                            <input type="file" class="form-control" id="banner" name="banner">
                         </div>
                     </div>
                     <div class="input-group mb-3">
                         <div class="col-3">
-                            <label for="game">Select logo</label>
+                            <p>Select logo</p>
                             @error('logo')
-                            <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="logo">Logo</span>
-                        </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="logo" name="logo">
-                            <label class="custom-file-label" for="logo">Choose file</label>
+                            <input type="file" class="form-control" id="logo" name="logo">
                         </div>
                     </div>
                     <div class="col-12 row mb-3">
@@ -42,12 +34,14 @@
                             <label for="name" class="form-label">Name</label>
                         </div>
                         @error('name')
-                        <div class="alert alert-danger">{{ $message }}</div>
+                            <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <div class="col-9">
                             <input type="text" class="form-control" id="name" name="name" value="{{ $server->name }}" placeholder="My server name">
                         </div>
                     </div>
+
+                    @if($server->game->type == 0)
                     <div class="col-12 row mb-3">
                         <div class="col-lg-3">
                             <label for="ip" class="form-label">Server infos</label>
@@ -95,6 +89,8 @@
                             </div>
                         </div>
                     </div>
+                    @endif
+
                     <div class="col-12 row mb-3">
                         <div class="col-3">
                             <label for="website" class="form-label">Website</label>
@@ -111,6 +107,8 @@
                             </div>
                         </div>
                     </div>
+
+                    @if($server->game->type == 0)
                     <div class="col-12 row mb-3">
                         <div class="col-3">
                             <label for="slots" class="form-label">Slots</label>
@@ -122,6 +120,8 @@
                             <input type="number" class="form-control" id="slots" name="slots" placeholder="100" value="{{ $server->slots }}">
                         </div>
                     </div>
+                    @endif
+
                     <div class="col-12 row mb-3">
                         <div class="col-3">
                             <label for="access" class="form-label">Access</label>
@@ -153,7 +153,7 @@
                     </div>
                     <div class="col-12 row mb-3">
                         <div class="col-3">
-                            <label for="tag">Language(s) authorized in the server</label>
+                            <label for="lang">Language(s) authorized in the server</label>
                         </div>
                         @error('lang')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -161,14 +161,18 @@
                         <div class="col-9">
                             <div class="form-group">
                                 <select class="form-control js-add-server-lang" id="lang" name="lang[]" multiple="multiple">
-                                    @foreach($server->languages as $l)
+                                    @forelse($server->languages as $l)
                                         <option selected="selected" value="{{ $l->id }}">{{ $l->name }}</option>
                                         @foreach($languages as $lang)
                                             @if ($lang->id !== $l->id)
                                                 <option value="{{ $lang->id }}">{{ $lang->name }}</option>
                                             @endif
                                         @endforeach
-                                    @endforeach
+                                        @empty
+                                            @foreach($languages as $lang)
+                                                <option value="{{ $lang->id }}">{{ $lang->name }}</option>
+                                            @endforeach
+                                    @endforelse
                                 </select>
                             </div>
                         </div>
@@ -183,14 +187,18 @@
                         <div class="col-9">
                             <div class="form-group">
                                 <select class="form-control js-add-server-tag" id="tag" name="tag[]" multiple="multiple">
-                                    @foreach($server->tags as $t)
+                                    @forelse($server->tags as $t)
                                         <option selected="selected" value="{{ $t->id }}">{{ $t->name }}</option>
                                         @foreach($tags as $tag)
                                             @if ($tag->id !== $t->id)
                                                 <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                             @endif
                                         @endforeach
-                                    @endforeach
+                                    @empty
+                                        @foreach($tags as $tag)
+                                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                        @endforeach
+                                    @endforelse
                                 </select>
                             </div>
                         </div>
