@@ -26,7 +26,7 @@ class ServerVoteController extends Controller
             abort('404');
 
         $this->validate($req, [
-            'pseudo'                => 'max:50',
+            'pseudo'                => 'min:3|max:50',
             'g-recaptcha-response'  => 'required|recaptchav3:vote,0.5'
         ]);
 
@@ -64,7 +64,7 @@ class ServerVoteController extends Controller
         if ($req->pseudo) {
             Vote::create([
                 'server_id' => $server->id,
-                'pseudo' => $req->name,
+                'pseudo' => $req->pseudo,
                 'date' => Carbon::now()->second(0)->toDateTimeString()
             ]);
         }

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         @include('user.nav')
         <div class="col-9 border-bottom border-start border-end rounded-bottom">
-            <form method="post" action="{{ route('my-profile.global') }}">
+            <form method="post" action="{{ route('my-settings.global') }}">
                 <div class="row">
                     <div class="mb-3">
                         <div>
@@ -36,7 +36,7 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
-            <form method="post" action="{{ route('my-profile.password') }}">
+            <form method="post" action="{{ route('my-settings.password') }}">
                 <div class="row">
                     <div class="mb-3">
                         <div>

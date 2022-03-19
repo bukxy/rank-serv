@@ -36,9 +36,9 @@ Route::middleware(['auth'])->group(function() {
         Route::get('settings', [UserController::class, 'settings'])->name('my-settings');
         Route::post('settings', [UserController::class, 'settings'])->name('my-settings');
 
-        Route::post('avatar', [UserController::class, 'avatar'])->name('my-profile.avatar');
-        Route::post('global', [UserController::class, 'global'])->name('my-profile.global');
-        Route::post('password', [UserController::class, 'password'])->name('my-profile.password');
+        Route::post('avatar', [UserController::class, 'avatar'])->name('my-settings.avatar');
+        Route::post('global', [UserController::class, 'globalStore'])->name('my-settings.global');
+        Route::post('password', [UserController::class, 'changePasswordStore'])->name('my-settings.password');
 
         Route::get('add-server', [NewServerController::class, 'new'])->name('add-server');
         Route::post('add-server', [NewServerController::class, 'newStore'])->name('add-server.store');

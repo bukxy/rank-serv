@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         @include('user.nav')
         <div class="col-9 border-bottom border-start border-end rounded-bottom">
-            <form method="post" action="{{ route('my-profile.global') }}">
+            <form method="post" action="{{ route('my-settings.global') }}">
                 <div class="row">
                     <div class="mb-3">
                         <div>
@@ -25,7 +25,7 @@
                         </div>
                         <div>
                             @error('email')
-                            <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                             <label for="email" class="form-label">Change my email address</label>
                             <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
@@ -36,7 +36,7 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
-            <form method="post" action="{{ route('my-profile.password') }}">
+            <form method="post" action="{{ route('my-settings.password') }}">
                 <div class="row">
                     <div class="mb-3">
                         <div>
@@ -55,7 +55,7 @@
                             <label for="newpass" class="form-label">New password</label>
                             <input type="password" class="form-control" id="email" aria-describedby="emailHelp" name="newpass">
                             <label for="newpassconfirm" class="form-label">Confirm new password</label>
-                            <input type="password" class="form-control" id="email" aria-describedby="emailHelp" name="newpassconfirm">
+                            <input type="password" class="form-control" id="email" aria-describedby="emailHelp" name="newpass_confirmation">
                         </div>
                     </div>
                     @csrf

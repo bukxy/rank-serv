@@ -4,15 +4,12 @@ namespace App\Mail;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class testMail extends Mailable
+class changePassword extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $user;
 
     /**
      * Create a new message instance.
@@ -21,7 +18,7 @@ class testMail extends Mailable
      */
     public function __construct(User $user)
     {
-        $this->user = $user;
+        //
     }
 
     /**
@@ -31,6 +28,6 @@ class testMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.test');
+        return $this->view('view.changePassword');
     }
 }
