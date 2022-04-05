@@ -29,6 +29,8 @@ class ServerController extends Controller
         ]);
     }
 
+    /////////////////////////////////////////////////////////////////////////
+
     public function filter(Request $req, $game) {
 
         $validated = $req->validate([
@@ -112,15 +114,10 @@ class ServerController extends Controller
         ]);
     }
 
-    public function edit($slug)
-    {
-        $s = Server::where('slug', $slug)->first();
-        if(!$s) abort(404);
-        return view('user.editserver', [
-            'server'    => $s,
-            'games'     => Game::all(),
-            'languages' => Language::all(),
-            'tags'      => Tag::all(),
+    public function serverInfo($game,$server) {
+        return view('server.info', [
+            'game' => Game::where('slug',$game)->first(),
+            'server' => Server::where('slug', $server)->first(),
         ]);
     }
 

@@ -1,0 +1,42 @@
+.filter{
+    max-width: 400px;
+    padding: 0;
+    margin: 0 auto;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    background-color: $white;
+    box-shadow: 4px 4px 3px $bc;
+    height: fit-content;
+    & .game-card {
+        width: 50%;
+        margin: auto;
+    }
+    & > div:nth-child(3) {
+        padding: 0 10px 10px;
+    }
+    & > div:nth-child(1) {
+        background-color: rgba(147, 178, 250, 0.20);
+        border-radius: $border-radius;
+        box-shadow: 0 2px 5px $border-color;
+        & h5 {
+            margin: 0;
+            padding: 5px;
+        }
+    }
+    & form > div {
+        margin: 10px auto;
+        padding: 10px;
+        background-color: rgba(147, 178, 250, 0.20);
+        border-radius: $border-radius;
+        &.vote span {
+            padding: 3px;
+        }
+    }
+    & ul {
+        list-style-type: none;
+        & li {
+            display:  inline;
+            margin: 0 25px;
+        }
+    }
+}

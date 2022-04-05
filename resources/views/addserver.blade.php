@@ -16,7 +16,7 @@
                         </div>
                         <div class="col-9">
                             <div class="form-group">
-                                <select class="form-control js-single-game" id="game" name="game">
+                                <select class="form-control js-single-game" id="game" name="game_id">
                                     @foreach($games as $game)
                                         <option value="{{ $game->id }}">{{ $game->name }}</option>
                                     @endforeach
@@ -26,7 +26,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <div class="col-3">
-                            <label for="game">Select game</label>
+                            <label for="game">Select banner</label>
                             @error('banner')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -41,7 +41,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <div class="col-3">
-                            <label for="game">Select game</label>
+                            <label for="game">Select logo</label>
                             @error('logo')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -66,33 +66,6 @@
                         </div>
                     </div>
                     <div class="col-12 row mb-3">
-                        <div class="col-lg-3">
-                            <label for="ip" class="form-label">Server infos</label>
-                        </div>
-                        @error('ip')
-                            <div class="alert alert-danger col-6">{{ $message }}</div>
-                        @enderror
-                        @error('port')
-                            <div class="alert alert-danger col-6">{{ $message }}</div>
-                        @enderror
-                        <div class="col-6">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">IP</span>
-                                </div>
-                                <input type="text" class="form-control" id="ip" name="ip" value="{{ old('ip') }}" placeholder="XXX.XXX.XXX.XXX">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">PORT</span>
-                                </div>
-                                <input type="text" class="form-control" id="ip" name="port" value="{{ old('port') }}" placeholder="XXXXX">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 row mb-3">
                         <div class="col-3">
                             <label for="tag">Server location</label>
                         </div>
@@ -101,39 +74,12 @@
                         @enderror
                         <div class="col-9">
                             <div class="form-group">
-                                <select class="form-control js-add-server-host" id="tag" name="host">
+                                <select class="form-control js-add-server-host" id="tag" name="host_id">
                                     @foreach($languages as $l)
                                         <option value="{{ $l->id }}">{{ $l->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-12 row mb-3">
-                        <div class="col-3">
-                            <label for="website" class="form-label">Website</label>
-                        </div>
-                        @error('website')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <div class="col-9">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">https://</span>
-                                </div>
-                                <input type="text" class="form-control" id="website" name="website" value="{{ old('website') }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 row mb-3">
-                        <div class="col-3">
-                            <label for="slots" class="form-label">Slots</label>
-                        </div>
-                            @error('slots')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        <div class="col-9">
-                            <input type="number" class="form-control" id="slots" name="slots" placeholder="100" value="{{ old('slots') }}">
                         </div>
                     </div>
                     <div class="col-12 row mb-3">
@@ -156,43 +102,14 @@
                     </div>
                     <div class="col-12 row mb-3">
                         <div class="col-3">
-                            <label for="desc" class="form-label">Description</label>
+                            <label for="desc" class="form-label">Short description</label>
                         </div>
                         @error('desc')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <div class="col-9">
-                            <textarea type="textarea" class="form-control" id="desc" name="desc">{{ old('desc') }}</textarea>
-                        </div>
-                    </div>
-                    <div class="col-12 row mb-3">
-                        <div class="col-3">
-                            <label for="tag">Language(s) authorized in the server</label>
-                        </div>
-                        @error('lang')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <div class="col-9">
-                            <div class="form-group">
-                                <select class="form-control js-add-server-lang" id="lang" name="lang[]" multiple="multiple">
-                                    @foreach($languages as $l)
-                                        <option value="{{ $l->id }}">{{ $l->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 row mb-3">
-                        <div class="col-3">
-                            <label for="tag">Tags</label>
-                        </div>
-                        @error('tag')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <div class="col-9">
-                            <div class="form-group">
-                                <select class="form-control js-add-server-tag" id="tag" name="tag[]" multiple="multiple"></select>
-                            </div>
+                            <small id="emailHelp" class="form-text text-muted">{{ __('What we see in the classement page') }}.</small>
+                            <textarea type="textarea" maxlength="300" class="form-control" id="desc" name="description">{{ old('description_short') }}</textarea>
                         </div>
                     </div>
                     <div class="col-12 row mb-3">
@@ -226,7 +143,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">IP</span>
                                 </div>
-                                <input type="text" class="form-control" id="tsip" name="tsip" placeholder="XXX.XXX.XXX.XXX" value="{{ old('tsip') }}">
+                                <input type="text" class="form-control" id="tsip" name="teamspeak" placeholder="XXX.XXX.XXX.XXX" value="{{ old('tsip') }}">
                             </div>
                         </div>
                         <div class="col-3">
@@ -234,7 +151,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">PORT</span>
                                 </div>
-                                <input type="text" class="form-control" id="tsport" name="tsport" placeholder="XXXXX" value="{{ old('tsport') }}">
+                                <input type="text" class="form-control" id="tsport" name="teamspeak_port" placeholder="XXXXX" value="{{ old('tsport') }}">
                             </div>
                         </div>
                     </div>
@@ -253,7 +170,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">IP</span>
                                 </div>
-                                <input type="text" class="form-control" id="mumbleip" name="mumbleip" placeholder="XXX.XXX.XXX.XXX" value="{{ old('mumbleip') }}">
+                                <input type="text" class="form-control" id="mumbleip" name="mumble" placeholder="XXX.XXX.XXX.XXX" value="{{ old('mumbleip') }}">
                             </div>
                         </div>
                         <div class="col-3">
@@ -261,7 +178,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">PORT</span>
                                 </div>
-                                <input type="text" class="form-control" id="mumbleport" name="mumbleport" placeholder="XXXXX" value="{{ old('mumbleport') }}">
+                                <input type="text" class="form-control" id="mumbleport" name="mumble_port" placeholder="XXXXX" value="{{ old('mumbleport') }}">
                             </div>
                         </div>
                     </div>
@@ -291,7 +208,7 @@
                         <div class="col-9">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">https://www.youtube.com/watch?v=</span>
+                                    <span class="input-group-text">https://www.youtube.com/</span>
                                 </div>
                                 <input type="text" class="form-control" id="youtube" name="youtube" value="{{ old('youtube') }}">
                             </div>
@@ -304,8 +221,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-    <script src="{{ asset('js/front/serverLangsList.js') }}"></script>
 @endsection

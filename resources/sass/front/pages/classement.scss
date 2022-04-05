@@ -1,23 +1,22 @@
 .servers {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     padding: 0;
-    box-shadow: 4px 4px 3px $border-color;
+    box-shadow: 4px 4px 3px $bc;
     &.first {
-        border: solid 2px $gold;
+        border: solid 5px $gold;
         & .rank {
             background-color: $gold;
         }
     }
     &.second {
-        border: solid 2px $silver;
+        border: solid 5px $silver;
         & .rank {
             background-color: $silver;
         }
     }
     &.third {
-        border: solid 2px $bronze;
+        border: solid 5px $bronze;
         & .rank {
             background-color: $bronze;
         }
@@ -27,17 +26,17 @@
         padding: 0;
     }
     & > .rank{
+        text-align: center;
         position: absolute;
-        top: -15px;
-        left: -15px;
-        width: 35px;
-        height: auto;
-        border: solid 1px $border-color;
-        border-radius: 3px;
-        padding: 0.3em 0.8em;
+        top: 30px;
+        left: -25px;
+        padding: 0.3em 0.5em;
         font-size: 15px;
         font-weight: bold;
         background-color: #f0f0f0;
+        opacity: .8;
+        color: black;
+        z-index: 2;
     }
     & .avis,.clicks,.votes {
         padding: 0.5em 0;
@@ -46,19 +45,13 @@
         border-left: solid 1px $border-color;
         border-right: solid 1px $border-color;
     }
-    & .logo , .host {
+    & .logo {
         position: absolute;
         max-width: 64px;
         max-height: 64px;
         z-index: 1;
-    }
-    & .logo {
-        top: 20px;
+        top: 35px;
         left: -50px;
-    }
-    & .host {
-        top: -32px;
-        left: -35px;
     }
     & .banner {
         padding: 0;

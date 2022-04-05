@@ -2,8 +2,12 @@
 @import 'variables';
 
 @import 'components/game-card';
-@import 'pages/servers-classement';
+@import 'pages/classement';
+@import 'components/filter';
 
 body {
     font-family: 'Roboto', sans-serif !important;
+}
+main {
+    background-color: $bc-dark;
 }

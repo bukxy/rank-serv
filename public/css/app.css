@@ -9798,11 +9798,7 @@ progress {
 
 .container,
 .container-fluid,
-.container-xxl,
-.container-xl,
-.container-lg,
-.container-md,
-.container-sm {
+.container-xxl {
   width: 100%;
   padding-right: var(--bs-gutter-x, 0.75rem);
   padding-left: var(--bs-gutter-x, 0.75rem);
@@ -9810,29 +9806,9 @@ progress {
   margin-left: auto;
 }
 
-@media (min-width: 576px) {
-  .container-sm, .container {
-    max-width: 540px;
-  }
-}
-@media (min-width: 768px) {
-  .container-md, .container-sm, .container {
-    max-width: 720px;
-  }
-}
-@media (min-width: 992px) {
-  .container-lg, .container-md, .container-sm, .container {
-    max-width: 960px;
-  }
-}
-@media (min-width: 1200px) {
-  .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1140px;
-  }
-}
 @media (min-width: 1400px) {
   .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1320px;
+    max-width: 1600px;
   }
 }
 .row {
@@ -13208,10 +13184,6 @@ textarea.form-control-lg {
 }
 .navbar > .container,
 .navbar > .container-fluid,
-.navbar > .container-sm,
-.navbar > .container-md,
-.navbar > .container-lg,
-.navbar > .container-xl,
 .navbar > .container-xxl {
   display: flex;
   flex-wrap: inherit;
@@ -20483,25 +20455,24 @@ textarea.form-control-lg {
 
 .servers {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   padding: 0;
-  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 3px #5C59FB;
 }
 .servers.first {
-  border: solid 2px #E8C860;
+  border: solid 5px #E8C860;
 }
 .servers.first .rank {
   background-color: #E8C860;
 }
 .servers.second {
-  border: solid 2px #ABABAB;
+  border: solid 5px #ABABAB;
 }
 .servers.second .rank {
   background-color: #ABABAB;
 }
 .servers.third {
-  border: solid 2px #9F765F;
+  border: solid 5px #9F765F;
 }
 .servers.third .rank {
   background-color: #9F765F;
@@ -20511,17 +20482,17 @@ textarea.form-control-lg {
   padding: 0;
 }
 .servers > .rank {
+  text-align: center;
   position: absolute;
-  top: -15px;
-  left: -15px;
-  width: 35px;
-  height: auto;
-  border: solid 1px rgba(0, 0, 0, 0.25);
-  border-radius: 3px;
-  padding: 0.3em 0.8em;
+  top: 30px;
+  left: -25px;
+  padding: 0.3em 0.5em;
   font-size: 15px;
   font-weight: bold;
   background-color: #f0f0f0;
+  opacity: 0.8;
+  color: black;
+  z-index: 2;
 }
 .servers .avis, .servers .clicks, .servers .votes {
   padding: 0.5em 0;
@@ -20530,19 +20501,13 @@ textarea.form-control-lg {
   border-left: solid 1px rgba(0, 0, 0, 0.25);
   border-right: solid 1px rgba(0, 0, 0, 0.25);
 }
-.servers .logo, .servers .host {
+.servers .logo {
   position: absolute;
   max-width: 64px;
   max-height: 64px;
   z-index: 1;
-}
-.servers .logo {
-  top: 20px;
+  top: 35px;
   left: -50px;
-}
-.servers .host {
-  top: -32px;
-  left: -35px;
 }
 .servers .banner {
   padding: 0;
@@ -20595,8 +20560,57 @@ textarea.form-control-lg {
   width: 1.5em;
 }
 
+.filter {
+  max-width: 400px;
+  padding: 0;
+  margin: 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  background-color: #F6F6F6;
+  box-shadow: 4px 4px 3px #5C59FB;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.filter .game-card {
+  width: 50%;
+  margin: auto;
+}
+.filter > div:nth-child(3) {
+  padding: 0 10px 10px;
+}
+.filter > div:nth-child(1) {
+  background-color: rgba(147, 178, 250, 0.2);
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+.filter > div:nth-child(1) h5, .filter > div:nth-child(1) .h5 {
+  margin: 0;
+  padding: 5px;
+}
+.filter form > div {
+  margin: 10px auto;
+  padding: 10px;
+  background-color: rgba(147, 178, 250, 0.2);
+  border-radius: 3px;
+}
+.filter form > div.vote span {
+  padding: 3px;
+}
+.filter ul {
+  list-style-type: none;
+}
+.filter ul li {
+  display: inline;
+  margin: 0 25px;
+}
+
 body {
   font-family: "Roboto", sans-serif !important;
+}
+
+main {
+  background-color: #12066E;
 }
 
 .fib {

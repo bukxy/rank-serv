@@ -1,58 +1,61 @@
-function example_image_upload_handler (blobInfo, success, failure, progress) {
-    let xhr, formData;
-
-    xhr = new XMLHttpRequest();
-    xhr.withCredentials = false;
-    xhr.open('POST', 'image/upload');
-    xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="csrf-token"]').attr('content'))
-
-    xhr.upload.onprogress = function (e) {
-        progress(e.loaded / e.total * 100);
-    };
-
-    xhr.onload = function() {
-        let json;
-
-        if (xhr.status === 403) {
-            failure('HTTP Error: ' + xhr.status, { remove: true });
-            return;
-        }
-
-        if (xhr.status < 200 || xhr.status >= 300) {
-            failure('HTTP Error: ' + xhr.status);
-            return;
-        }
-
-        json = JSON.parse(xhr.responseText);
-
-        if (!json || typeof json.location != 'string') {
-            failure('Invalid JSON: ' + xhr.responseText);
-            return;
-        }
-
-        success(json.location);
-    };
-
-    xhr.onerror = function () {
-        failure('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
-    };
-
-    formData = new FormData();
-    formData.append('file', blobInfo.blob(), blobInfo.filename());
-    formData.append('slug', $('.tinymce').data('sid'));
-
-    xhr.send(formData);
-}
+// function example_image_upload_handler (blobInfo, success, failure, progress) {
+//     let xhr, formData;
+//
+//     xhr = new XMLHttpRequest();
+//     xhr.withCredentials = false;
+//     xhr.open('POST', 'image/upload');
+//     xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="csrf-token"]').attr('content'))
+//
+//     xhr.upload.onprogress = function (e) {
+//         progress(e.loaded / e.total * 100);
+//     };
+//
+//     xhr.onload = function() {
+//         let json;
+//
+//         if (xhr.status === 403) {
+//             failure('HTTP Error: ' + xhr.status, { remove: true });
+//             return;
+//         }
+//
+//         if (xhr.status < 200 || xhr.status >= 300) {
+//             failure('HTTP Error: ' + xhr.status);
+//             return;
+//         }
+//
+//         json = JSON.parse(xhr.responseText);
+//
+//         if (!json || typeof json.location != 'string') {
+//             failure('Invalid JSON: ' + xhr.responseText);
+//             return;
+//         }
+//
+//         success(json.location);
+//     };
+//
+//     xhr.onerror = function () {
+//         failure('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+//     };
+//
+//     formData = new FormData();
+//     formData.append('file', blobInfo.blob(), blobInfo.filename());
+//     formData.append('slug', $('.tinymce').data('sid'));
+//
+//     console.log(formData);
+//     xhr.send(formData);
+// }
 
 tinymce.init({
     selector: '.tinymce',
     plugins: 'image code',
     toolbar: 'undo redo | link image | code',
     images_file_types: 'jpg,gif,png',
+    block_unsupported_drop: true,
     /* enable title field in the Image dialog*/
     image_title: true,
     /* enable automatic uploads of images represented by blob or data URIs*/
     automatic_uploads: true,
+    images_upload_url: 'image/upload',
     /*
       URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
       images_upload_url: 'postAcceptor.php',
@@ -98,5 +101,5 @@ tinymce.init({
         input.click();
     },
     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-    images_upload_handler: example_image_upload_handler
+    // images_upload_handler: example_image_upload_handler
 });

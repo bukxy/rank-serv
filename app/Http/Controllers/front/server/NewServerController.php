@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front\server;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ServerAddRequest;
 use App\Models\Game;
 use App\Models\Image;
 use App\Models\Language;
@@ -14,86 +15,50 @@ use Symfony\Component\HttpFoundation\Request;
 
 class NewServerController extends Controller
 {
-    public function new() {
+    public function new()
+    {
         return view('addserver', [
-            'games'     => Game::all(),
-            'languages'  => Language::all()
+            'games' => Game::all(),
+            'languages' => Language::all()
         ]);
     }
 
-    public function newStore(Request $req) {
+    public function newStore(ServerAddRequest $req)
+    {
 
-        $req->validate([
-            'game' => 'required',
-            'banner' => 'nullable|mimes:png,jpg,jpeg,gif|dimensions:max_width=200,max_height=200|max:2048',
-            'logo' => 'nullable|mimes:png,jpg,jpeg,gif|dimensions:max_width=64,max_height=64|max:2048',
-            'name' => 'required',
-            'ip' => 'nullable',
-            'port' => ['nullable','not_regex:/[^0-9]/'],
-            'host' => 'nullable',
-            'website' => 'nullable',
-            'slots' => ['nullable','not_regex:/[^0-9]/'],
-            'access' => 'nullable',
-            'desc' => 'required',
-            'lang' => 'nullable',
-            'tag' => 'required',
-            'discord' => 'nullable',
-            'ts_ip' => ['nullable','regex:/[^.0-9]/' ],
-            'mumble_ip' => ['nullable','regex:/[^.0-9]/'],
-            'twitch' => 'nullable',
-            'youtube' => 'nullable',
-        ]);
-
-        // ---- verification if exist in db
-        if(!Game::find($req->game))
-            abort(404);
-
-        if ($req->tag) {
-            foreach ($req->tag as $t) {
-                if (!Tag::find($t))
-                    abort(404);
-            }
-        }
-
-        if ($req->lang) {
-            foreach ($req->lang as $l) {
-                if (!Language::find($l))
-                    abort(404);
-            }
-        }
-        // ---- end of verification if exist in db
-
-        if ($req->port) $ip = $req->ip.':'.$req->port; else $ip = $req->ip;
-        if ($req->tsport) $ts = $req->tsip.':'.$req->tsport; else $ts = $req->tsip;
-        if ($req->mumbleport) $mumble = $req->mumbleip.':'.$req->mumbleport; else $mumble = $req->mumbleip;
+//         Retrieve the validated input data...
+        $req->validated();
 
         if ($req->banner) {
             $banner = $req->file('banner');
-            $path1 = Str::orderedUuid().'.'.$banner->extension();
-            $banner->storeAs('media/banner/', $path1,'s3');
+            $path1 = Str::orderedUuid() . '.' . $banner->extension();
+            $banner->storeAs('media/banner/', $path1, 's3');
 
-            $img1 = Image::create([
-                'user_id'   => Auth::id(),
-                'path'      => $path1,
-            ]);
-        }
+            $imgBanner = Image::create([
+                'user_id' => Auth::id(),
+                'path' => $path1,
+            ])->id;
+        } else {$imgBanner = null;}
 
         if ($req->logo) {
             $logo = $req->file('logo');
             $path2 = Str::orderedUuid() . '.' . $logo->extension();
             $logo->storeAs('media/logo/', $path2, 's3');
 
-            $img2 = Image::create([
-                'user_id'   => Auth::id(),
-                'path'      => $path2,
-            ]);
-        }
+            $imgLogo = Image::create([
+                'user_id' => Auth::id(),
+                'path' => $path2,
+            ])->id;
+        } else {$imgLogo = null;}
 
         if ($req->tag) {
+            $gameInfo = Game::find($req->game_id);
             $tags = [];
             foreach ($req->tag as $t) {
-                $tag = Tag::find($t);
-                $tags[] = $tag->id;
+                if(Tag::where('game_id', $gameInfo)->where('id',$t)) {
+                    $tag = Tag::find($t);
+                    $tags[] = $tag->id;
+                }
             }
         }
 
@@ -107,35 +72,31 @@ class NewServerController extends Controller
         }
 
         $server = Server::create([
-            'user_id' => Auth::id(),
-            'game_id' => $req->game,
-            'banner_id' => $img1->id,
-            'logo_id' => $img2->id,
-            'name' => $req->name,
-            'slug' => Str::of($req->name)->slug('-'),
-            'ip' => $req->ip,
-            'port' => $req->port,
-            'host_id' => $req->host,
-            'website' => $req->website,
-            'slots' => $req->slots,
-            'access' => $req->access,
-            'description' => $req->desc,
-            'discord' => $req->discord,
-            'teamspeak' => $req->ts_ip,
-            'teamspeak_port' => $req->ts_port,
-            'mumble' => $req->mumble_ip,
+            'user_id'   => Auth::id(),
+            'game_id'   => $req->game_id,
+            'name'      => $req->name,
+            'slug'      => Str::uuid(), // Just to don't get a same slug (url) of another server when CREATED
+            'host_id'   => $req->host_id,
+            'access'    => $req->access,
+            'description' => $req->description,
+            'discord'   => $req->discord,
+            'teamspeak' => $req->teamspeak,
+            'teamspeak_port' => $req->teamspeak_port,
+            'mumble'    => $req->mumble,
             'mumble_port' => $req->mumble_port,
-            'twitch' => $req->twitch,
-            'youtube' => $req->youtube,
-            'api'   => Str::uuid()
+            'twitch'    => $req->twitch,
+            'youtube'   => $req->youtube,
+            'api'       => Str::uuid()
         ]);
 
-        Server::where('id', $server->id)->update([
-           'slug' => $server->slug.'-'.$server->id
+        $server->update([
+            'slug'      => $server->name . '-' . $server->id,
+            'banner'    => $imgBanner,
+            'logo'      => $imgLogo,
         ]);
 
         if ($req->tag)
-            $server->tags()->syncWithoutDetaching($tags);
+            $server->tags()->create($tags);
         if ($req->lang)
             $server->languages()->syncWithoutDetaching($langs);
 
@@ -143,7 +104,8 @@ class NewServerController extends Controller
         return redirect()->route('index');
     }
 
-    public function getGameTags($id) {
+    public function getGameTags($id)
+    {
         return response()->json(['success' => Tag::where('game_id', $id)->get()]);
     }
 }

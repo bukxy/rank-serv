@@ -11,48 +11,35 @@ class Server extends Model
     use HasFactory;
     use Filterable;
 
-    protected $fillable = [
-        'user_id',
-        'game_id',
-        'banner_id',
-        'logo_id',
-        'name',
-        'slug',
-        'ip',
-        'port',
-        'query',
-        'host_id',
-        'website',
-        'slots',
-        'access',
-        'description',
-        'language',
-        'discord',
-        'teamspeak',
-        'mumble',
-        'twitch',
-        'youtube',
-        'vote',
-        'click',
-        'api',
-    ];
+//    protected $fillable = [
+//        'user_id',
+//        'game_id',
+//        'banner_id',
+//        'logo_id',
+//        'name',
+//        'slug',
+//        'ip',
+//        'port',
+//        'query',
+//        'host_id',
+//        'website',
+//        'slots',
+//        'access',
+//        'description',
+//        'language',
+//        'discord',
+//        'teamspeak',
+//        'teamspeak_port',
+//        'mumble',
+//        'mumble_port',
+//        'twitch',
+//        'youtube',
+//        'vote',
+//        'click',
+//        'api',
+//    ];
 
-    private static $whiteListFilter =[
-        'game_id',
-        'name',
-        'ip',
-        'host_id',
-        'website',
-        'access',
-        'language',
-        'discord',
-        'teamspeak',
-        'mumble',
-        'twitch',
-        'youtube',
-        'vote',
-        'click',
-    ];
+    protected $guarded = [];
 
     public function game() {
         return $this->hasOne(Game::class, 'id', 'game_id');

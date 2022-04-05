@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\front\FrontController;
+use App\Http\Controllers\front\server\EditServerController;
 use App\Http\Controllers\front\server\NewServerController;
 use App\Http\Controllers\front\server\ServerController;
 use App\Http\Controllers\front\server\ServerVoteController;
@@ -29,9 +30,9 @@ Route::middleware(['auth'])->group(function() {
 
         Route::prefix('servers')->group(function () {
             Route::get('/', [UserController::class, 'servers'])->name('my-servers');
-            Route::get('/{slug}', [ServerController::class, 'edit'])->name('my-servers.edit');
-            Route::post('/{slug}/info', [ServerController::class, 'getServerToUploadImage'])->name('my-servers.edit.infoserver'); // take slug server when upload image in ckeditor
-            Route::post('/{slug}', [ServerController::class, 'editStore'])->name('my-servers.store');
+            Route::get('/{slug}', [EditServerController::class, 'edit'])->name('my-servers.edit');
+            Route::post('/image/upload', [ServerController::class, 'upload'])->name('test'); // tinymce ajax upload
+            Route::post('/{slug}', [EditServerController::class, 'editStore'])->name('my-servers.store');
         });
         Route::get('settings', [UserController::class, 'settings'])->name('my-settings');
         Route::post('settings', [UserController::class, 'settings'])->name('my-settings');
@@ -50,7 +51,7 @@ Route::middleware(['auth'])->group(function() {
 Route::prefix('/{game}')->group(function() {
     Route::get('/', [ServerController::class, 'list'])->name('game.server');
     Route::post('/', [ServerController::class, 'filter'])->name('game.server.filter');
-    Route::get('/{server}', [FrontController::class, 'info'])->name('serverInfo');
+    Route::get('/{server}', [ServerController::class, 'serverInfo'])->name('server.info');
     Route::get('/{server}/vote', [ServerVoteController::class, 'vote'])->name('server.vote');
     Route::post('/{server}/vote', [ServerVoteController::class, 'voteStore'])->name('server.voteStore');
 });

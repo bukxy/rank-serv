@@ -54,4 +54,13 @@ $(document).ready(function($) {
         listHost.val(null).trigger('change');
         listLang.val(null).trigger('change');
     }
+
+    // EDIT SERVER
+    $('.js-edit-server-tag').select2({
+        placeholder: 'Select tags'
+    });
+
+
+
+    // CLICK SERVER
 });
